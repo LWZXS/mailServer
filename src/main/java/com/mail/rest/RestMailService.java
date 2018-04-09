@@ -52,5 +52,23 @@ public class RestMailService {
 		return Response.status(Status.OK).entity(result).build();
 
 	}
+	
+	@GET
+	@Path("/sendMailTest")
+	@Produces("application/json")
+	public Response sendMailTest(@QueryParam("token") String token)throws Exception {
+
+		Context data = new Context();
+		data.setVariable("user_name", "Chris");
+		String toMail="2355906871@qq.com";
+		String mailCategory="CreateAccount";
+		String title="Test";
+		String userName="Chris Zhang";
+		mailServiceDelegate.sendMailTest(toMail, mailCategory, title, userName, data);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("status", "true");
+		return Response.status(Status.OK).entity(result).build();
+
+	}
 
 }

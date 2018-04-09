@@ -113,6 +113,7 @@
     <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
         <property name="connectionFactory" ref="connectionFactory" />
     </bean>
+    <bean id="applicationContextProvder" class="com.mail.delegate.ApplicationContextProvider"/>
 
  
 
