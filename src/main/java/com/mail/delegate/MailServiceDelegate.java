@@ -1,5 +1,8 @@
 package com.mail.delegate;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -10,12 +13,17 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import com.mail.common.DateUtil;
+import com.mail.dao.SendMailDao;
 import com.mail.dao.TemplateDao;
+import com.mail.entity.Sendmail;
 
 @Service
 public class MailServiceDelegate {
 	@Autowired
 	private TemplateDao templateDao;
+	@Autowired
+	private SendMailDao sendMailDao;
 	@Autowired
 	private TemplateEngine templateEngine;
 	private Logger logger = LogManager.getLogger(this.getClass().getName());
@@ -47,17 +55,21 @@ public class MailServiceDelegate {
 		} catch (EmailException e) {
 			logger.fatal("Failed to send email");
 			logger.fatal(e.toString());
-		}/* finally {
+			status=1;
+		} finally {
+			Date now = new Date();
+			Long time = now.getTime()/1000;
 			Sendmail sendmail = new Sendmail();
 			sendmail.setContent(emailContent);
 			sendmail.setMail_category(mailCategory);
 			sendmail.setMail_title(title);
 			sendmail.setMail_to(toMail);
-			sendmail.setSend_time(Integer.valueOf(DateUtil.getNowLong().toString()));
-			sendmail.setStatus(Status);
+			sendmail.setSend_time(Integer.valueOf(time.toString()));
+			sendmail.setCreate_time(new Timestamp(now.getTime()));
+			sendmail.setStatus(status);
 			sendmail.setUser_name(userName);
-			backEndService.insertMail(sendmail);
-		}*/
+			sendMailDao.insert(sendmail);
+		}
 		return status;
 	}
 }

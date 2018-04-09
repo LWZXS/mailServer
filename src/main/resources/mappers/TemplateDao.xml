@@ -12,9 +12,11 @@
 
 
     <select id="selectTemplateById" parameterType="int" resultMap="BaseResultMap">
-        select template_id, template_subject, template_content from xysc_mail_templates where template_id= #{template_id}
+        select template_id, template_subject, template_content from mail_templates where template_id= #{template_id}
     </select>
-
+    <select id="selectTemplateBySubject" parameterType="String" resultMap="BaseResultMap">
+        select template_id, template_subject, template_content from mail_templates where template_subject= #{template_subject}
+    </select>
 	
    
 	

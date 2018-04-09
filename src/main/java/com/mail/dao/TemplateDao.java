@@ -10,5 +10,6 @@ import com.mail.entity.Template;
 public interface TemplateDao {
 
 	public Template selectTemplateById(@Param("template_id") int tid);    
+	public Template selectTemplateBySubject(@Param("template_subject") int template_subject);   
 
 }
