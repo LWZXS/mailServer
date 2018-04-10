@@ -6,6 +6,10 @@
     <param-value>true</param-value>
   </context-param>
   <listener>
+    <listener-class>com.mail.listener.MyContextListener</listener-class>
+  </listener>
+  
+  <listener>
     <listener-class>
 			org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap
                 </listener-class>
