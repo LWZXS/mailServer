@@ -82,8 +82,8 @@ public class MailServiceDelegate {
 		try {
 			//Context data = new Context();
 			//data.setVariable("user_name", userName);
-			ThymeleafTemplateResolver templateResolver = new ThymeleafTemplateResolver();
-			templateEngine.setTemplateResolver(templateResolver);
+			//ThymeleafTemplateResolver templateResolver = new ThymeleafTemplateResolver();
+			//templateEngine.setTemplateResolver(templateResolver);
 			emailContent = templateEngine.process(mailCategory, data);
 			htmlEmail.setHostName("smtp.gmail.com");
 			htmlEmail.addTo(toMail, userName);

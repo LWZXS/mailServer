@@ -38,11 +38,11 @@ public class RestMailService {
 	@GET
 	@Path("/sendmail")
 	@Produces("application/json")
-	public Response sendmail(@QueryParam("token") String token)throws Exception {
+	public Response sendmail(@QueryParam("token") String token,@QueryParam("mail") String mail)throws Exception {
 
 		Context data = new Context();
 		data.setVariable("user_name", "Chris");
-		String toMail="2355906871@qq.com";
+		String toMail=mail;
 		String mailCategory="CreateAccountEmail";
 		String title="Test";
 		String userName="Chris Zhang";
@@ -56,11 +56,11 @@ public class RestMailService {
 	@GET
 	@Path("/sendMailTest")
 	@Produces("application/json")
-	public Response sendMailTest(@QueryParam("token") String token)throws Exception {
+	public Response sendMailTest(@QueryParam("token") String token,@QueryParam("mail") String mail)throws Exception {
 
 		Context data = new Context();
 		data.setVariable("user_name", "Chris");
-		String toMail="2355906871@qq.com";
+		String toMail=mail;
 		String mailCategory="CreateAccount";
 		String title="Test";
 		String userName="Chris Zhang";
