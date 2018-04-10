@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mail.dao.TemplateDao">
+
+	<resultMap id="BaseResultMap" type="com.mail.entity.Template">
+    <result column="template_id" jdbcType="INTEGER" property="template_id" />
+    <result column="template_subject" jdbcType="VARCHAR" property="template_subject" />
+    <result column="template_content" jdbcType="VARCHAR" property="template_content" />
+    </resultMap>
+
+
+    <select id="selectTemplateById" parameterType="int" resultMap="BaseResultMap">
+        select template_id, template_subject, template_content from mail_templates where template_id= #{template_id}
+    </select>
+    <select id="selectTemplateBySubject" parameterType="String" resultMap="BaseResultMap">
+        select template_id, template_subject, template_content from mail_templates where template_subject= #{template_subject}
+    </select>
+	
+   
+	
+	  		
+</mapper>
