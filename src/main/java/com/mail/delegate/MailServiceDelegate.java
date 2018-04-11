@@ -138,7 +138,7 @@ public class MailServiceDelegate {
 		List<String> emails = subscriberService.getEmails(MailConstants.SUBSCRIBED);	
 		for (String emailAddr :emails) {
 			if (Pattern.matches(MailConstants.RULE_EMAIL, emailAddr)) {
-				sendMail(emailAddr, voQuery.getMailCategory(), voQuery.getTitle(), voQuery.getUserName(), voQuery.getData());
+				sendMail(emailAddr, voQuery.getMailCategory(), voQuery.getTitle(), "", voQuery.getData());
 			}
 		}
 		logger.info("Complete to send emails...");

@@ -73,7 +73,6 @@ public class RestMailService {
 	@Produces("application/json")
 	public Response testScheduledEmail() throws SchedulerException {
 		VoQuery voQuery = new VoQuery();
-		
 		EmailUtils.buildEmailScheduler(voQuery);
 		
 		Map<String, Object> result = new HashMap<String, Object>();

@@ -11,6 +11,7 @@ import org.quartz.JobExecutionException;
 import org.quartz.SchedulerContext;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.thymeleaf.context.Context;
 
 import java.time.LocalDate;
 import java.time.Year;
@@ -62,8 +63,8 @@ public class ScheduleEmailJob extends ScheduleJob {
 				isHoliday = true;
 				voQuery.setMailCategory(holiday.getContent());
 				voQuery.setTitle(templateDao.selectTemplateBySubject(holiday.getContent()).getTemplate_title());
-				System.out.println(voQuery.getMailCategory() + " -- " + voQuery.getTitle());
-//				mailServiceDelegate.sendMail(voQuery);
+				voQuery.setData(new Context());
+				mailServiceDelegate.sendMail(voQuery);
 				break;
 			}
 		}
@@ -71,6 +72,7 @@ public class ScheduleEmailJob extends ScheduleJob {
 		if (!isHoliday && (now.getDayOfWeek().toString().equalsIgnoreCase(MailConstants.TARGETDAY1) || now.getDayOfWeek().toString().equalsIgnoreCase(MailConstants.TARGETDAY2))) {
 			voQuery.setMailCategory(MailConstants.REGULARTEMPLATE);
 			voQuery.setTitle(templateDao.selectTemplateBySubject(MailConstants.REGULARTEMPLATE).getTemplate_title());
+			voQuery.setData(new Context());
 			mailServiceDelegate.sendMail(voQuery);
 		}
 	}
