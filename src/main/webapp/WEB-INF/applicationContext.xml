@@ -96,6 +96,7 @@
 	<property name="templateResolvers">
 		<set>
 			<ref bean="DbTemplateResolver" />
+			<ref bean="emailTemplateResolver" />
 		</set>
 	</property>
   </bean>
