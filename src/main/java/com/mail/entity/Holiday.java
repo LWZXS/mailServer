@@ -8,7 +8,16 @@ public class Holiday {
 	private Integer month;
 
     private Integer day;
+    private String content;
 
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 
 	public Integer getRec_id() {
 		return rec_id;
@@ -48,6 +57,10 @@ public class Holiday {
 	    }	 
 	    return true;
 	}
-		
 
+	@Override
+	public String toString() {
+		return "Holiday [rec_id=" + rec_id + ", month=" + month + ", day=" + day + ", content=" + content + "]";
+	}
+	
 }

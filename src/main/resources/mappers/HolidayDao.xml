@@ -7,14 +7,15 @@
 		<id column="rec_id" property="rec_id" jdbcType="INTEGER" />
 		<result column="month" property="month" jdbcType="INTEGER" />
 		<result column="day" property="day" jdbcType="INTEGER" />
+		<result column="content" property="content"/>
 	</resultMap>
 
 
 
-	<select id="getHolidays" parameterType="int" resultMap="HolidayResultMap">
+	<select id="getHolidays" resultMap="HolidayResultMap">
 		SELECT *
 		FROM
-		shu_holiday
+		mail_holiday
 	</select>
 
 

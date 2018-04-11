@@ -13,9 +13,9 @@ import com.mail.entity.VoQuery;
 
 public class EmailUtils {
 	public static void buildEmailScheduler(VoQuery voQuery) throws SchedulerException {
-		JobDetail job = JobBuilder.newJob(ScheduleEmailJob.class).withIdentity("dummyJobName", "group1").build();
+		JobDetail job = JobBuilder.newJob(ScheduleEmailJob.class).withIdentity("scheduleEmailJob", "group1").build();
 
-		Trigger trigger = TriggerBuilder.newTrigger().withIdentity("dummyTriggerName", "group1")
+		Trigger trigger = TriggerBuilder.newTrigger().withIdentity("scheduleEmailTrigger", "group1")
 				.withSchedule(CronScheduleBuilder.cronSchedule(MailConstants.SCEDULEDEMAILINTERVAL)).build();
 
 		Scheduler scheduler = new StdSchedulerFactory().getScheduler();
