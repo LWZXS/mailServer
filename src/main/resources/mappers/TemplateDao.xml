@@ -8,14 +8,15 @@
     <result column="template_id" jdbcType="INTEGER" property="template_id" />
     <result column="template_subject" jdbcType="VARCHAR" property="template_subject" />
     <result column="template_content" jdbcType="VARCHAR" property="template_content" />
+    <result column="template_title" jdbcType="VARCHAR" property="template_title" />
     </resultMap>
 
 
     <select id="selectTemplateById" parameterType="int" resultMap="BaseResultMap">
-        select template_id, template_subject, template_content from mail_templates where template_id= #{template_id}
+        select template_id, template_subject, template_content,template_title from mail_templates where template_id= #{template_id}
     </select>
     <select id="selectTemplateBySubject" parameterType="String" resultMap="BaseResultMap">
-        select template_id, template_subject, template_content from mail_templates where template_subject= #{template_subject}
+        select template_id, template_subject, template_content,template_title from mail_templates where template_subject= #{template_subject}
     </select>
 	
    

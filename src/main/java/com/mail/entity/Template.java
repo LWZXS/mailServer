@@ -19,9 +19,19 @@ public class Template {
     
     private String type;
     
+    private String template_title;
+    
 	
 	
 	
+	public String getTemplate_title() {
+		return template_title;
+	}
+
+	public void setTemplate_title(String template_title) {
+		this.template_title = template_title;
+	}
+
 	public int getTemplate_id() {
 		return template_id;
 	}

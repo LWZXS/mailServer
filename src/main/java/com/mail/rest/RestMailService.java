@@ -35,13 +35,13 @@ public class RestMailService {
 	@GET
 	@Path("/sendmail")
 	@Produces("application/json")
-	public Response sendmail(@QueryParam("token") String token,@QueryParam("mail") String mail)throws Exception {
+	public Response sendmail(@QueryParam("token") String token,@QueryParam("mail") String mail,@QueryParam("title") String title,@QueryParam("mailCategory") String mailCategory)throws Exception {
 
 		Context data = new Context();
 		data.setVariable("user_name", "Chris");
 		String toMail=mail;
-		String mailCategory="CreateAccountEmail";
-		String title="Test";
+		//String mailCategory="CreateAccountEmail";
+		//String title="Test";
 		String userName="Chris Zhang";
 		mailServiceDelegate.sendMail(toMail, mailCategory, title, userName, data);
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -53,13 +53,13 @@ public class RestMailService {
 	@GET
 	@Path("/sendMailTest")
 	@Produces("application/json")
-	public Response sendMailTest(@QueryParam("token") String token,@QueryParam("mail") String mail)throws Exception {
+	public Response sendMailTest(@QueryParam("token") String token,@QueryParam("mail") String mail,@QueryParam("title") String title,@QueryParam("mailCategory") String mailCategory)throws Exception {
 
 		Context data = new Context();
 		data.setVariable("user_name", "Chris");
 		String toMail=mail;
-		String mailCategory="CreateAccount";
-		String title="Test";
+		//String mailCategory="CreateAccount";
+		//String title="Test";
 		String userName="Chris Zhang";
 		mailServiceDelegate.sendMailTest(toMail, mailCategory, title, userName, data);
 		Map<String, Object> result = new HashMap<String, Object>();

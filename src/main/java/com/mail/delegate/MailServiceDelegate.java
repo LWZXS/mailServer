@@ -40,7 +40,7 @@ public class MailServiceDelegate {
 			//data.setVariable("user_name", userName);
 			emailContent = templateEngine.process(mailCategory, data);
 			htmlEmail.setHostName("smtp.gmail.com");
-			htmlEmail.addTo(toMail, userName);
+			htmlEmail.addTo(toMail, "");
 			htmlEmail.setAuthenticator(new DefaultAuthenticator("usitripit1@gmail.com",
 					"usitripbdusa"));
 			htmlEmail.setFrom("DoNotReply@qq.com", "TestMail");
@@ -70,7 +70,7 @@ public class MailServiceDelegate {
 			sendmail.setSend_time(Integer.valueOf(time.toString()));
 			sendmail.setCreate_time(new Timestamp(now.getTime()));
 			sendmail.setStatus(status);
-			sendmail.setUser_name(userName);
+			sendmail.setUser_name(userName==null?"":userName);
 			sendMailDao.insert(sendmail);
 		}
 		return status;
@@ -91,7 +91,7 @@ public class MailServiceDelegate {
 			htmlEmail.addTo(toMail, userName);
 			htmlEmail.setAuthenticator(new DefaultAuthenticator("usitripit1@gmail.com",
 					"usitripbdusa"));
-			htmlEmail.setFrom("DoNotReply@qq.com", "TestMail");
+			htmlEmail.setFrom("DoNotReply@qq.com", "MailSystemTest");
 			htmlEmail.setSubject(title);
 			// htmlEmail.setSSLOnConnect(true);
 			htmlEmail.setStartTLSEnabled(true);
@@ -120,7 +120,7 @@ public class MailServiceDelegate {
 			sendmail.setSend_time(Integer.valueOf(time.toString()));
 			sendmail.setCreate_time(new Timestamp(now.getTime()));
 			sendmail.setStatus(status);
-			sendmail.setUser_name(userName);
+			sendmail.setUser_name(userName==null?"":userName);
 			sendMailDao.insert(sendmail);
 		}
 		return status;
