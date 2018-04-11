@@ -5,5 +5,5 @@ import java.util.List;
 import com.mail.entity.Holiday;
 
 public interface HolidayService {
-	List<Holiday> getHolidays();
+	List<Holiday> getHolidays(int year);
 }

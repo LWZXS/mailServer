@@ -36,7 +36,6 @@ public class ScheduleEmailJob extends ScheduleJob {
 		SchedulerContext schedulerContext;
 		try {
 			schedulerContext = jobExecutionContext.getScheduler().getContext();
-			System.out.println("ScheduleEmailJob.execute: Sending an email...");
 			VoQuery voQuery = (VoQuery) schedulerContext.get("emailData");
 			sendEmailByCondition(voQuery);
 			
@@ -50,16 +49,14 @@ public class ScheduleEmailJob extends ScheduleJob {
 	}
 
 	private void sendEmailByCondition(VoQuery voQuery) throws Exception {
-		Year year = Year.now();
-		int yearValue = year.getValue();
-		List<Holiday> holidays = holidayService.getHolidays();
+		List<Holiday> holidays = holidayService.getHolidays(Year.now().getValue());
 		
 		LocalDate now = LocalDate.now();
 		LocalDate targetDay = now.plus(MailConstants.BEFORHOLIDAY, ChronoUnit.DAYS);
 		boolean isHoliday = false;
 		
 		for (Holiday holiday :holidays) {
-			LocalDate day =	LocalDate.of(yearValue, holiday.getMonth(), holiday.getDay());
+			LocalDate day =	LocalDate.of(holiday.getYear(), holiday.getMonth(), holiday.getDay());
 			if (targetDay.isEqual(day)) {
 				isHoliday = true;
 				//replace it with the sendHolidayMail
@@ -68,7 +65,7 @@ public class ScheduleEmailJob extends ScheduleJob {
 			}
 		}
 		
-		if (!isHoliday && (now.toString().equalsIgnoreCase(MailConstants.TARGETDAY1) || now.toString().equalsIgnoreCase(MailConstants.TARGETDAY2))) {
+		if (!isHoliday && (now.getDayOfWeek().toString().equalsIgnoreCase(MailConstants.TARGETDAY1) || now.getDayOfWeek().toString().equalsIgnoreCase(MailConstants.TARGETDAY2))) {
 			mailServiceDelegate.sendMail(voQuery);
 		}
 	}

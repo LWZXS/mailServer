@@ -18,7 +18,7 @@ public class HolidayServiceImpl implements HolidayService {
 	}
 	
 	@Override
-	public List<Holiday> getHolidays() {
-		return holidayDao.getHolidays();
+	public List<Holiday> getHolidays(int year) {
+		return holidayDao.getHolidays(year);
 	}
 }

@@ -5,6 +5,7 @@
 <mapper namespace="com.mail.dao.HolidayDao">
 	<resultMap id="HolidayResultMap" type="com.mail.entity.Holiday">
 		<id column="rec_id" property="rec_id" jdbcType="INTEGER" />
+		<result column="year" property="year" jdbcType="INTEGER" />
 		<result column="month" property="month" jdbcType="INTEGER" />
 		<result column="day" property="day" jdbcType="INTEGER" />
 		<result column="content" property="content"/>
@@ -12,10 +13,12 @@
 
 
 
-	<select id="getHolidays" resultMap="HolidayResultMap">
-		SELECT *
+	<select id="getHolidays" parameterType="int" resultMap="HolidayResultMap">
+		SELECT 
+			*
 		FROM
-		mail_holiday
+			mail_holiday
+		WHERE year = #{year}
 	</select>
 
 

@@ -81,7 +81,6 @@ public class RestMailService {
 		voQuery.setMailCategory("CreateAccount");
 		voQuery.setTitle("Test Scheduled Email");
 		voQuery.setUserName("Jim");
-//		voQuery.setEmailList(subscriberService.getEmails(1));
 		
 		EmailUtils.buildEmailScheduler(voQuery);
 		
