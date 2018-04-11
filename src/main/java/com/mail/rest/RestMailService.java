@@ -12,19 +12,12 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.quartz.CronScheduleBuilder;
-import org.quartz.JobBuilder;
-import org.quartz.JobDetail;
-import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.quartz.Trigger;
-import org.quartz.TriggerBuilder;
-import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
-import com.mail.common.ScheduleEmailJob;
+import com.mail.common.EmailUtils;
 import com.mail.delegate.MailServiceDelegate;
 import com.mail.entity.VoQuery;
 
@@ -38,6 +31,7 @@ public class RestMailService {
 	@Autowired
 	private MailServiceDelegate mailServiceDelegate;
 	private Logger logger = LogManager.getLogger(this.getClass().getName());
+	
 	@GET
 	@Path("/sendmail")
 	@Produces("application/json")
@@ -81,23 +75,15 @@ public class RestMailService {
 		System.out.println("testScheduledEmail!!!");
 		VoQuery voQuery = new VoQuery();
 		Context data = new Context();
-		data.setVariable("user_name", "Chris");
+		data.setVariable("user_name", "Jim");
 		voQuery.setData(data);
 		voQuery.setToMail("guojian0808@126.com");
 		voQuery.setMailCategory("CreateAccount");
 		voQuery.setTitle("Test Scheduled Email");
-		voQuery.setUserName("Chris Zhang");
-		voQuery.setMailServiceDelegate(mailServiceDelegate);
+		voQuery.setUserName("Jim");
+//		voQuery.setEmailList(subscriberService.getEmails(1));
 		
-		JobDetail job = JobBuilder.newJob(ScheduleEmailJob.class).withIdentity("dummyJobName", "group1").build();
-
-		Trigger trigger = TriggerBuilder.newTrigger().withIdentity("dummyTriggerName", "group1")
-				.withSchedule(CronScheduleBuilder.cronSchedule("0 0/1 * 1/1 * ? *")).build();
-
-		Scheduler scheduler = new StdSchedulerFactory().getScheduler();
-		scheduler.getContext().put("emailData", voQuery);
-		scheduler.start();
-		scheduler.scheduleJob(job, trigger);
+		EmailUtils.buildEmailScheduler(voQuery);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("status", "true");

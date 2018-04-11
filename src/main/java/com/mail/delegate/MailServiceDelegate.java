@@ -2,6 +2,8 @@ package com.mail.delegate;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
+import java.util.regex.Pattern;
 
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
@@ -13,11 +15,11 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.mail.common.DateUtil;
-import com.mail.common.ThymeleafTemplateResolver;
+import com.mail.common.MailConstants;
 import com.mail.dao.SendMailDao;
 import com.mail.dao.TemplateDao;
 import com.mail.entity.Sendmail;
+import com.mail.entity.VoQuery;
 
 @Service
 public class MailServiceDelegate {
@@ -122,5 +124,21 @@ public class MailServiceDelegate {
 			sendMailDao.insert(sendmail);
 		}
 		return status;
+	}
+	
+	private SubscriberService subscriberService;
+	
+	@Autowired
+	public void setSubscriberService(SubscriberService subscriberService) {
+		this.subscriberService = subscriberService;
+	}
+
+	public void sendMail(VoQuery voQuery) throws Exception {
+		List<String> emails = subscriberService.getEmails(MailConstants.SUBSCRIBED);	
+		for (String email :emails) {
+			if (Pattern.matches(MailConstants.RULE_EMAIL, email)) {
+				sendMail(email, voQuery.getMailCategory(), voQuery.getTitle(), voQuery.getUserName(), voQuery.getData());
+			}
+		}
 	}
 }

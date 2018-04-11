@@ -2,8 +2,6 @@ package com.mail.entity;
 
 import org.thymeleaf.context.Context;
 
-import com.mail.delegate.MailServiceDelegate;
-
 public class VoQuery {
 	/**
 	 * Context data = new Context(); data.setVariable("user_name", "Chris"); String
@@ -15,16 +13,6 @@ public class VoQuery {
 	private String mailCategory;
 	private String title;
 	private String userName;
-
-	private MailServiceDelegate mailServiceDelegate;
-	
-	public MailServiceDelegate getMailServiceDelegate() {
-		return mailServiceDelegate;
-	}
-
-	public void setMailServiceDelegate(MailServiceDelegate mailServiceDelegate) {
-		this.mailServiceDelegate = mailServiceDelegate;
-	}
 
 	public Context getData() {
 		return data;
