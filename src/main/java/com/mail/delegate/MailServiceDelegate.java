@@ -48,6 +48,7 @@ public class MailServiceDelegate {
 			// htmlEmail.setSSLOnConnect(true);
 			htmlEmail.setStartTLSEnabled(true);
 			htmlEmail.setSmtpPort(587);
+			htmlEmail.setCharset("utf-8");
 			// embed the image and get the content id
 
 			htmlEmail.setHtmlMsg(emailContent);
@@ -96,6 +97,7 @@ public class MailServiceDelegate {
 			// htmlEmail.setSSLOnConnect(true);
 			htmlEmail.setStartTLSEnabled(true);
 			htmlEmail.setSmtpPort(587);
+			htmlEmail.setCharset("utf-8");
 			// embed the image and get the content id
 
 			htmlEmail.setHtmlMsg(emailContent);
