@@ -12,4 +12,6 @@ public class MailConstants {
 	public static final Long BEFORHOLIDAY = 7L;
 	public static final String TARGETDAY1 = "TUESDAY";
 	public static final String TARGETDAY2 = "FRIDAY";
+
+	public static final String REGULARTEMPLATE = "TestMail";
 }

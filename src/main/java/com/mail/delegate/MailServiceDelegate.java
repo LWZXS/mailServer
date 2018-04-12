@@ -136,13 +136,13 @@ public class MailServiceDelegate {
 	}
 
 	public void sendMail(VoQuery voQuery) throws Exception {
-		System.out.println("Ready to send emails...");
+		logger.info("Ready to send emails...");
 		List<String> emails = subscriberService.getEmails(MailConstants.SUBSCRIBED);	
-		for (String email :emails) {
-			if (Pattern.matches(MailConstants.RULE_EMAIL, email)) {
-				sendMail(email, voQuery.getMailCategory(), voQuery.getTitle(), voQuery.getUserName(), voQuery.getData());
+		for (String emailAddr :emails) {
+			if (Pattern.matches(MailConstants.RULE_EMAIL, emailAddr)) {
+				sendMail(emailAddr, voQuery.getMailCategory(), voQuery.getTitle(), "", voQuery.getData());
 			}
 		}
-		System.out.println("Complete to send emails...");
+		logger.info("Complete to send emails...");
 	}
 }

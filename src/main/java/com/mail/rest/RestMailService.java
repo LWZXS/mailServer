@@ -72,16 +72,7 @@ public class RestMailService {
 	@Path("/testEmail")
 	@Produces("application/json")
 	public Response testScheduledEmail() throws SchedulerException {
-		System.out.println("testScheduledEmail!!!");
 		VoQuery voQuery = new VoQuery();
-		Context data = new Context();
-		data.setVariable("user_name", "Jim");
-		voQuery.setData(data);
-		voQuery.setToMail("guojian0808@126.com");
-		voQuery.setMailCategory("CreateAccount");
-		voQuery.setTitle("Test Scheduled Email");
-		voQuery.setUserName("Jim");
-		
 		EmailUtils.buildEmailScheduler(voQuery);
 		
 		Map<String, Object> result = new HashMap<String, Object>();

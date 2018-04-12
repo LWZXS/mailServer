@@ -1,34 +1,37 @@
 package com.mail.common;
 
-import java.time.LocalDate;
-import java.time.Year;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-
+import com.mail.dao.TemplateDao;
+import com.mail.delegate.HolidayService;
+import com.mail.delegate.MailServiceDelegate;
+import com.mail.entity.Holiday;
+import com.mail.entity.Template;
+import com.mail.entity.VoQuery;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.SchedulerContext;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.thymeleaf.context.Context;
 
-import com.mail.delegate.HolidayService;
-import com.mail.delegate.MailServiceDelegate;
-import com.mail.entity.Holiday;
-import com.mail.entity.VoQuery;
-
-import sun.security.util.ECKeySizeParameterSpec;
+import java.time.LocalDate;
+import java.time.Year;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 public class ScheduleEmailJob extends ScheduleJob {
-	private MailServiceDelegate mailServiceDelegate;
 	@Autowired
-	public void setMailServiceDelegate(MailServiceDelegate mailServiceDelegate) {
-		this.mailServiceDelegate = mailServiceDelegate;
-	}
-	
+	private MailServiceDelegate mailServiceDelegate;
+
 	private HolidayService holidayService;
 	@Autowired
 	public void setHolidayService(HolidayService holidayService) {
 		this.holidayService = holidayService;
+	}
+
+	private TemplateDao templateDao;
+	@Autowired
+	public void setTemplateDao(TemplateDao templateDao) {
+		this.templateDao = templateDao;
 	}
 
 	public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
@@ -38,15 +41,14 @@ public class ScheduleEmailJob extends ScheduleJob {
 			schedulerContext = jobExecutionContext.getScheduler().getContext();
 			VoQuery voQuery = (VoQuery) schedulerContext.get("emailData");
 			sendEmailByCondition(voQuery);
-			
+
 		} catch (SchedulerException e) {
 			logger.fatal("Some exceptions happend on fetching a scheduler context");
-			logger.fatal(e.toString());
 		} catch (Exception e) {
 			logger.fatal("Some exceptions happend on sending emails");
-			logger.fatal(e.toString());
 		}
 	}
+
 
 	private void sendEmailByCondition(VoQuery voQuery) throws Exception {
 		List<Holiday> holidays = holidayService.getHolidays(Year.now().getValue());
@@ -59,13 +61,18 @@ public class ScheduleEmailJob extends ScheduleJob {
 			LocalDate day =	LocalDate.of(holiday.getYear(), holiday.getMonth(), holiday.getDay());
 			if (targetDay.isEqual(day)) {
 				isHoliday = true;
-				//replace it with the sendHolidayMail
+				voQuery.setMailCategory(holiday.getContent());
+				voQuery.setTitle(templateDao.selectTemplateBySubject(holiday.getContent()).getTemplate_title());
+				voQuery.setData(new Context());
 				mailServiceDelegate.sendMail(voQuery);
 				break;
 			}
 		}
 		
 		if (!isHoliday && (now.getDayOfWeek().toString().equalsIgnoreCase(MailConstants.TARGETDAY1) || now.getDayOfWeek().toString().equalsIgnoreCase(MailConstants.TARGETDAY2))) {
+			voQuery.setMailCategory(MailConstants.REGULARTEMPLATE);
+			voQuery.setTitle(templateDao.selectTemplateBySubject(MailConstants.REGULARTEMPLATE).getTemplate_title());
+			voQuery.setData(new Context());
 			mailServiceDelegate.sendMail(voQuery);
 		}
 	}
