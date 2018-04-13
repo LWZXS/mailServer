@@ -22,9 +22,14 @@ public class SubscriberServiceImpl implements SubscriberService {
 	}
 
 	@Override
-	public void unsubscribeEmail(String email) {
+	public int unsubscribeEmail(String email) {
 		Subscriber subscriber = subscriberDao.getSubscriberByEmail(email);
-		subscriber.setSubscribed(0);
-		subscriberDao.unsubscribeByEmail(subscriber);
+		if (subscriber == null) {
+			return 0;
+		}else {
+			subscriber.setSubscribed(0);
+			subscriberDao.unsubscribeByEmail(subscriber);
+			return 1;
+		}
 	}
 }

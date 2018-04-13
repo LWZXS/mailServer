@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -92,10 +93,16 @@ public class RestMailService {
 	@Path("/unsubscribeEmail/{emailAddr}")
 	@Produces("application/json")
 	public Response unsubscribeEmail(@PathParam("emailAddr") String emailAddr) {
-		subscriberService.unsubscribeEmail(emailAddr);
+		String msg;
+		if (subscriberService.unsubscribeEmail(emailAddr) == 1) {
+			msg = "You have successfully unsubscribed!";
+		}else {
+			msg = "Unsubscription failed. Please contact the administrator!";
+			logger.warn("Email address does not exist...");
+		}
 		
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("status", "You have successfully unsubscribed!");
+		result.put("status", msg);
 		return Response.status(Status.OK).entity(result).build();
 	}
 }
