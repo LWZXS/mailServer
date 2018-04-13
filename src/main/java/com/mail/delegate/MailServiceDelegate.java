@@ -2,7 +2,9 @@ package com.mail.delegate;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.apache.commons.mail.DefaultAuthenticator;
@@ -124,8 +126,9 @@ public class MailServiceDelegate {
 		return status;
 	}
 	
-	public int sendMailTest(String toMail, String mailCategory,
+	public Map<String,Object> sendMailTest(String toMail, String mailCategory,
 			String title, String userName, Context data) throws Exception {
+		Map<String,Object> ret = new HashMap<String,Object>();
 		int status =0;
 		String emailContent = "";
 		HtmlEmail htmlEmail = new HtmlEmail();
@@ -152,13 +155,16 @@ public class MailServiceDelegate {
 			htmlEmail.setHtmlMsg(emailContent);
 			// send the email
 			htmlEmail.send();
+			ret.put("status", "success");
 
 		} catch (EmailException e) {
 			logger.fatal("Failed to send email. Got EmailException:"+e.getMessage(),e);
 			status=1;
+			ret.put("Error:", e.getMessage());
 		} catch (Exception e) {
 			logger.fatal("Failed to send email. Got Exception:"+e.getMessage(),e);
 			status=1;
+			ret.put("Error:", e.getMessage());
 		} finally {
 			Date now = new Date();
 			Long time = now.getTime()/1000;
@@ -173,7 +179,7 @@ public class MailServiceDelegate {
 			sendmail.setUser_name(userName==null?"":userName);
 			sendMailDao.insert(sendmail);
 		}
-		return status;
+		return ret;
 	}
 	
 	private SubscriberService subscriberService;

@@ -70,9 +70,8 @@ public class RestMailService {
 		//String mailCategory="CreateAccount";
 		//String title="Test";
 		String userName="Chris Zhang";
-		mailServiceDelegate.sendMailTest(toMail, mailCategory, title, userName, data);
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("status", "true");
+		Map<String, Object> result = mailServiceDelegate.sendMailTest(toMail, mailCategory, title, userName, data);
+		
 		return Response.status(Status.OK).entity(result).build();
 
 	}
