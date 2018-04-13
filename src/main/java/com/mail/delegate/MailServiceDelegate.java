@@ -186,7 +186,7 @@ public class MailServiceDelegate {
 		String emailContent = templateEngine.process(voQuery.getMailCategory(), voQuery.getData());
 		for (String emailAddr :emails) {
 			if (Pattern.matches(MailConstants.RULE_EMAIL, emailAddr)) {
-				voQuery.getData().setVariable("user_name", emailAddr);
+				voQuery.getData().setVariable("email_addr", emailAddr);
 				sendBatchMail(emailAddr, voQuery.getMailCategory(), voQuery.getTitle(), "", emailContent);
 			}
 		}
