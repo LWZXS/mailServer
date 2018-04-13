@@ -2,8 +2,8 @@ package com.mail.common;
 
 public class MailConstants {
 //	public static final String SCEDULEDEMAILINTERVAL = "0 0 6 1/1 * ? *"; //every day at 6:00
-//	public static final String SCEDULEDEMAILINTERVAL = "0 0 6 ? * TUE,FRI *";//every tue, fri at 6:00
-	public static final String SCEDULEDEMAILINTERVAL = "0 0/1 * 1/1 * ? *";//every one minute
+	public static final String SCEDULEDEMAILINTERVAL = "0 0 6 ? * TUE,FRI *";//every tue, fri at 6:00
+//	public static final String SCEDULEDEMAILINTERVAL = "0 0/1 * 1/1 * ? *";//every one minute
 //	public static final String SCEDULEDEMAILINTERVAL = "0/5 * * * * ?";//every one second
 	
 	public static final Integer SUBSCRIBED = 1;
@@ -15,4 +15,5 @@ public class MailConstants {
 
 	public static final String TUESTEMPLATE = "TUESDAYMail";
 	public static final String FRITEMPLATE = "WEDNESDAYMail";
+	public static final String UNSUBSCRIBE_URL = "http://hotelstest.usitrip.com/subscribe/cancel/";
 }

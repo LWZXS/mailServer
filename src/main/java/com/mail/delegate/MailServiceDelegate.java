@@ -84,6 +84,7 @@ public class MailServiceDelegate {
 		try {
 			//Context data = new Context();
 			//data.setVariable("user_name", userName);
+			data.setVariable("unsubscribe", MailConstants.UNSUBSCRIBE_URL+toMail);
 			emailContent = templateEngine.process(mailCategory, data);
 			htmlEmail.setHostName("smtp.gmail.com");
 			htmlEmail.addTo(toMail, "");
@@ -133,6 +134,8 @@ public class MailServiceDelegate {
 			//data.setVariable("user_name", userName);
 			//ThymeleafTemplateResolver templateResolver = new ThymeleafTemplateResolver();
 			//templateEngine.setTemplateResolver(templateResolver);
+
+			data.setVariable("unsubscribe", MailConstants.UNSUBSCRIBE_URL+toMail);
 			emailContent = templateEngine.process(mailCategory, data);
 			htmlEmail.setHostName("smtp.gmail.com");
 			htmlEmail.addTo(toMail, userName);
@@ -183,10 +186,10 @@ public class MailServiceDelegate {
 	public void sendMail(VoQuery voQuery) throws Exception {
 		logger.info("Ready to send emails...");
 		List<String> emails = subscriberService.getEmails(MailConstants.SUBSCRIBED);
-		String emailContent = templateEngine.process(voQuery.getMailCategory(), voQuery.getData());
 		for (String emailAddr :emails) {
 			if (Pattern.matches(MailConstants.RULE_EMAIL, emailAddr)) {
-				voQuery.getData().setVariable("email_addr", emailAddr);
+				voQuery.getData().setVariable("unsubscribe", MailConstants.UNSUBSCRIBE_URL+emailAddr);
+				String emailContent = templateEngine.process(voQuery.getMailCategory(), voQuery.getData());
 				sendBatchMail(emailAddr, voQuery.getMailCategory(), voQuery.getTitle(), "", emailContent);
 			}
 		}
