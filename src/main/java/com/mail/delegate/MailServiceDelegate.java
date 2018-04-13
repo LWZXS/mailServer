@@ -30,6 +30,52 @@ public class MailServiceDelegate {
 	@Autowired
 	private TemplateEngine templateEngine;
 	private Logger logger = LogManager.getLogger(this.getClass().getName());
+	public int sendBatchMail(String toMail, String mailCategory,
+			String title, String userName, String emailContent) throws Exception {
+		int status =0;
+		//String emailContent = "";
+		HtmlEmail htmlEmail = new HtmlEmail();
+		try {
+			//Context data = new Context();
+			//data.setVariable("user_name", userName);
+			//emailContent = templateEngine.process(mailCategory, data);
+			htmlEmail.setHostName("smtp.gmail.com");
+			htmlEmail.addTo(toMail, "");
+			htmlEmail.setAuthenticator(new DefaultAuthenticator("usitripit1@gmail.com",
+					"usitripbdusa"));
+			htmlEmail.setFrom("DoNotReply@qq.com", "TestMail");
+			htmlEmail.setSubject(title);
+			// htmlEmail.setSSLOnConnect(true);
+			htmlEmail.setStartTLSEnabled(true);
+			htmlEmail.setSmtpPort(587);
+			htmlEmail.setCharset("utf-8");
+			// embed the image and get the content id
+
+			htmlEmail.setHtmlMsg(emailContent);
+
+			// send the email
+			htmlEmail.send();
+
+		} catch (EmailException e) {
+			logger.fatal("Failed to send email");
+			logger.fatal(e.toString());
+			status=1;
+		} finally {
+			Date now = new Date();
+			Long time = now.getTime()/1000;
+			Sendmail sendmail = new Sendmail();
+			sendmail.setContent(emailContent);
+			sendmail.setMail_category(mailCategory);
+			sendmail.setMail_title(title);
+			sendmail.setMail_to(toMail);
+			sendmail.setSend_time(Integer.valueOf(time.toString()));
+			sendmail.setCreate_time(new Timestamp(now.getTime()));
+			sendmail.setStatus(status);
+			sendmail.setUser_name(userName==null?"":userName);
+			sendMailDao.insert(sendmail);
+		}
+		return status;
+	}
 	public int sendMail(String toMail, String mailCategory,
 			String title, String userName, Context data) throws Exception {
 		int status =0;
@@ -136,11 +182,12 @@ public class MailServiceDelegate {
 
 	public void sendMail(VoQuery voQuery) throws Exception {
 		logger.info("Ready to send emails...");
-		List<String> emails = subscriberService.getEmails(MailConstants.SUBSCRIBED);	
+		List<String> emails = subscriberService.getEmails(MailConstants.SUBSCRIBED);
+		String emailContent = templateEngine.process(voQuery.getMailCategory(), voQuery.getData());
 		for (String emailAddr :emails) {
 			if (Pattern.matches(MailConstants.RULE_EMAIL, emailAddr)) {
 				voQuery.getData().setVariable("user_name", emailAddr);
-				sendMail(emailAddr, voQuery.getMailCategory(), voQuery.getTitle(), "", voQuery.getData());
+				sendBatchMail(emailAddr, voQuery.getMailCategory(), voQuery.getTitle(), "", emailContent);
 			}
 		}
 		logger.info("Complete to send emails...");

@@ -13,6 +13,6 @@ public class MailConstants {
 	public static final String TARGETDAY1 = "TUESDAY";
 	public static final String TARGETDAY2 = "WEDNESDAY";
 
-	public static final String TUESTEMPLATE = "TestMail";
-	public static final String FRITEMPLATE = "TestMail";
+	public static final String TUESTEMPLATE = "TUESDAYMail";
+	public static final String FRITEMPLATE = "WEDNESDAYMail";
 }

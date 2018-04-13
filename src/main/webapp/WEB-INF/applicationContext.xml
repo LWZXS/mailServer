@@ -90,7 +90,7 @@
 	<property name="templateMode" value="HTML5"></property>
 	<property name="order" value="1"></property>
 	<property name="characterEncoding" value="UTF-8"></property>
-	<property name="cacheable" value="true"></property>
+	<property name="cacheable" value="false"></property>
 </bean>
 <bean id="templateEngine" class="org.thymeleaf.spring3.SpringTemplateEngine">
 	<property name="templateResolvers">
