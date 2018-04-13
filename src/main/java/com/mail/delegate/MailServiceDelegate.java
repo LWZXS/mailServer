@@ -101,7 +101,6 @@ public class MailServiceDelegate {
 			// embed the image and get the content id
 
 			htmlEmail.setHtmlMsg(emailContent);
-
 			// send the email
 			htmlEmail.send();
 
@@ -140,6 +139,7 @@ public class MailServiceDelegate {
 		List<String> emails = subscriberService.getEmails(MailConstants.SUBSCRIBED);	
 		for (String emailAddr :emails) {
 			if (Pattern.matches(MailConstants.RULE_EMAIL, emailAddr)) {
+				voQuery.getData().setVariable("user_name", emailAddr);
 				sendMail(emailAddr, voQuery.getMailCategory(), voQuery.getTitle(), "", voQuery.getData());
 			}
 		}

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
@@ -19,6 +20,7 @@ import org.thymeleaf.context.Context;
 
 import com.mail.common.EmailUtils;
 import com.mail.delegate.MailServiceDelegate;
+import com.mail.delegate.SubscriberService;
 import com.mail.entity.VoQuery;
 
 
@@ -32,6 +34,12 @@ public class RestMailService {
 	private MailServiceDelegate mailServiceDelegate;
 	private Logger logger = LogManager.getLogger(this.getClass().getName());
 	
+	private SubscriberService subscriberService;
+	@Autowired
+	public void setSubscriberService(SubscriberService subscriberService) {
+		this.subscriberService = subscriberService;
+	}
+
 	@GET
 	@Path("/sendmail")
 	@Produces("application/json")
@@ -79,5 +87,15 @@ public class RestMailService {
 		result.put("status", "true");
 		return Response.status(Status.OK).entity(result).build();
 	}
-
+	
+	@GET
+	@Path("/unsubscribeEmail/{emailAddr}")
+	@Produces("application/json")
+	public Response unsubscribeEmail(@PathParam("emailAddr") String emailAddr) {
+		subscriberService.unsubscribeEmail(emailAddr);
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("status", "You have successfully unsubscribed!");
+		return Response.status(Status.OK).entity(result).build();
+	}
 }

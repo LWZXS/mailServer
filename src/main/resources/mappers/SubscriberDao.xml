@@ -9,4 +9,21 @@
 		subscribed_test
 		WHERE subscribed = #{subscribed}
 	</select>
+	
+	<select id="getSubscriberByEmail" parameterType="string" resultType="com.mail.entity.Subscriber">
+		SELECT
+			*
+		FROM
+			subscriber
+		WHERE email = #{email}	
+	</select>
+	
+	<update id="unsubscribeByEmail" parameterType="com.mail.entity.Subscriber">
+		UPDATE
+			subscriber
+		SET
+			subscribed = #{subscribed}
+		WHERE
+			email = #{email}
+	</update>
 </mapper>

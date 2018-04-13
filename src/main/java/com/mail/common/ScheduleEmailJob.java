@@ -69,11 +69,18 @@ public class ScheduleEmailJob extends ScheduleJob {
 			}
 		}
 		
-		if (!isHoliday && (now.getDayOfWeek().toString().equalsIgnoreCase(MailConstants.TARGETDAY1) || now.getDayOfWeek().toString().equalsIgnoreCase(MailConstants.TARGETDAY2))) {
-			voQuery.setMailCategory(MailConstants.REGULARTEMPLATE);
-			voQuery.setTitle(templateDao.selectTemplateBySubject(MailConstants.REGULARTEMPLATE).getTemplate_title());
-			voQuery.setData(new Context());
-			mailServiceDelegate.sendMail(voQuery);
+		if (!isHoliday) {
+			if (now.getDayOfWeek().toString().equalsIgnoreCase(MailConstants.TARGETDAY1)) {
+				voQuery.setMailCategory(MailConstants.TUESTEMPLATE);
+				voQuery.setTitle(templateDao.selectTemplateBySubject(MailConstants.TUESTEMPLATE).getTemplate_title());
+				voQuery.setData(new Context());
+				mailServiceDelegate.sendMail(voQuery);
+			}else if (now.getDayOfWeek().toString().equalsIgnoreCase(MailConstants.TARGETDAY2)) {
+				voQuery.setMailCategory(MailConstants.FRITEMPLATE);
+				voQuery.setTitle(templateDao.selectTemplateBySubject(MailConstants.FRITEMPLATE).getTemplate_title());
+				voQuery.setData(new Context());
+				mailServiceDelegate.sendMail(voQuery);
+			}
 		}
 	}
 }
