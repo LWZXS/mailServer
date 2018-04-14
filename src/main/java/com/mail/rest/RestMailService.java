@@ -95,10 +95,10 @@ public class RestMailService {
 		String msg;
 		if (subscriberService.unsubscribeEmail(emailAddr) == 1) {
 			//msg = "You have successfully unsubscribed!";
-			msg = "successed";
+			msg = "success";
 		}else {
 			//msg = "Unsubscription failed. Please contact the administrator!";
-			msg = "failed";
+			msg = "fail";
 			logger.warn("Email address does not exist...");
 		}
 		
