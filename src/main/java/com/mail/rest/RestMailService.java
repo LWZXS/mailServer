@@ -1,5 +1,7 @@
 package com.mail.rest;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
 import com.mail.common.EmailUtils;
+import com.mail.common.StringUtil;
 import com.mail.delegate.MailServiceDelegate;
 import com.mail.delegate.SubscriberService;
 import com.mail.entity.VoQuery;
@@ -91,16 +94,30 @@ public class RestMailService {
 	@GET
 	@Path("/unsubscribeEmail/{emailAddr}")
 	@Produces("application/json")
-	public Response unsubscribeEmail(@PathParam("emailAddr") String emailAddr) {
+	public Response unsubscribeEmail(@PathParam("emailAddr") String emailAddr,@QueryParam("code") String code) {
 		String msg;
-		if (subscriberService.unsubscribeEmail(emailAddr) == 1) {
-			//msg = "You have successfully unsubscribed!";
-			msg = "success";
-		}else {
-			//msg = "Unsubscription failed. Please contact the administrator!";
+
+		try {
+			String code2 = StringUtil.Encoder(emailAddr, "");
+			if(!code2.equals(code)){
+				msg = "fail";
+				logger.fatal("Don't have permit to unsubscribe this email..."+emailAddr);
+			}else{
+				if (subscriberService.unsubscribeEmail(emailAddr) == 1) {
+					//msg = "You have successfully unsubscribed!";
+					msg = "success";
+				}else {
+					//msg = "Unsubscription failed. Please contact the administrator!";
+					msg = "fail";
+					logger.warn("Email address does not exist...");
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			msg = "fail";
-			logger.warn("Email address does not exist...");
+			logger.fatal("unsub failed...",e);
 		}
+
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("status", msg);

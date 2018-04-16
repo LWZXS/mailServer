@@ -18,6 +18,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import com.mail.common.MailConstants;
+import com.mail.common.StringUtil;
 import com.mail.dao.SendMailDao;
 import com.mail.dao.TemplateDao;
 import com.mail.entity.Sendmail;
@@ -138,7 +139,8 @@ public class MailServiceDelegate {
 			//ThymeleafTemplateResolver templateResolver = new ThymeleafTemplateResolver();
 			//templateEngine.setTemplateResolver(templateResolver);
 
-			data.setVariable("unsubscribe", MailConstants.UNSUBSCRIBE_URL+toMail);
+			String code = StringUtil.Encoder(toMail, "");
+			data.setVariable("unsubscribe", MailConstants.UNSUBSCRIBE_URL+toMail+"?code="+code);
 			emailContent = templateEngine.process(mailCategory, data);
 			htmlEmail.setHostName("smtp.gmail.com");
 			htmlEmail.addTo(toMail, userName);
@@ -194,7 +196,8 @@ public class MailServiceDelegate {
 		List<String> emails = subscriberService.getEmails(MailConstants.SUBSCRIBED);
 		for (String emailAddr :emails) {
 			if (Pattern.matches(MailConstants.RULE_EMAIL, emailAddr)) {
-				voQuery.getData().setVariable("unsubscribe", MailConstants.UNSUBSCRIBE_URL+emailAddr);
+				String code = StringUtil.Encoder(emailAddr, "");
+				voQuery.getData().setVariable("unsubscribe", MailConstants.UNSUBSCRIBE_URL+emailAddr+"?code="+code);
 				String emailContent = templateEngine.process(voQuery.getMailCategory(), voQuery.getData());
 				sendBatchMail(emailAddr, voQuery.getMailCategory(), voQuery.getTitle(), "", emailContent);
 			}
