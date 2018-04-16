@@ -17,4 +17,11 @@ public class MailConstants {
 	public static final String TUESTEMPLATE = "TUESDAYMail";
 	public static final String FRITEMPLATE = "FRIDAYMail";
 	public static final String UNSUBSCRIBE_URL = "http://hotelstest.usitrip.com/subscribe/cancel/";
+	
+
+	public static final String HOST_NAME = "smtp.exmail.qq.com";
+	public static final String SENDER_ADR = "hotel-order@usitrip.com";
+	public static final String SENDER_PAS = "117UsiHorde";
+	public static final Integer SMTP_PORT = 587;
+	public static final String FROM_NAME = "UsitripMailSystem";
 }
