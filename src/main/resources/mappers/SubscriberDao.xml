@@ -7,7 +7,7 @@
 		SELECT 
 			email
 		FROM
-			hotel.subscriber
+			subscriber
 		WHERE subscribed = #{subscribed}
 	</select>
 	
@@ -15,13 +15,13 @@
 		SELECT
 			*
 		FROM
-			hotel.subscriber
+			subscriber
 		WHERE email = #{email}	
 	</select>
 	
 	<update id="unsubscribeByEmail" parameterType="com.mail.entity.Subscriber">
 		UPDATE
-			hotel.subscriber
+			subscriber
 		SET
 			subscribed = #{subscribed}
 		WHERE email = #{email}
