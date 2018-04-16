@@ -12,9 +12,9 @@ public class MailConstants {
 	
 	public static final Long BEFORHOLIDAY = 7L;
 	public static final String TARGETDAY1 = "TUESDAY";
-	public static final String TARGETDAY2 = "FRIDAY";
+	public static final String TARGETDAY2 = "WEDNESDAY";
 
 	public static final String TUESTEMPLATE = "TUESDAYMail";
-	public static final String FRITEMPLATE = "FRIDAYMail";
-	public static final String UNSUBSCRIBE_URL = "http://hotel.usitrip.com/subscribe/cancel/";
+	public static final String FRITEMPLATE = "WEDNESDAYMail";
+	public static final String UNSUBSCRIBE_URL = "http://hotelstest.usitrip.com/subscribe/cancel/";
 }
