@@ -42,15 +42,15 @@ public class MailServiceDelegate {
 			//Context data = new Context();
 			//data.setVariable("user_name", userName);
 			//emailContent = templateEngine.process(mailCategory, data);
-			htmlEmail.setHostName("smtp.gmail.com");
-			htmlEmail.addTo(toMail, "");
-			htmlEmail.setAuthenticator(new DefaultAuthenticator("usitripit1@gmail.com",
-					"usitripbdusa"));
-			htmlEmail.setFrom("DoNotReply@qq.com", "TestMail");
+			htmlEmail.setHostName(MailConstants.HOST_NAME);
+			htmlEmail.addTo(toMail, userName);
+			htmlEmail.setAuthenticator(new DefaultAuthenticator(MailConstants.SENDER_ADR,
+					MailConstants.SENDER_PAS));
+			htmlEmail.setFrom(MailConstants.SENDER_ADR, MailConstants.FROM_NAME);
 			htmlEmail.setSubject(title);
 			// htmlEmail.setSSLOnConnect(true);
 			htmlEmail.setStartTLSEnabled(true);
-			htmlEmail.setSmtpPort(587);
+			htmlEmail.setSmtpPort(MailConstants.SMTP_PORT);
 			htmlEmail.setCharset("utf-8");
 			// embed the image and get the content id
 
@@ -89,15 +89,15 @@ public class MailServiceDelegate {
 			//data.setVariable("user_name", userName);
 			data.setVariable("unsubscribe", MailConstants.UNSUBSCRIBE_URL+toMail);
 			emailContent = templateEngine.process(mailCategory, data);
-			htmlEmail.setHostName("smtp.gmail.com");
-			htmlEmail.addTo(toMail, "");
-			htmlEmail.setAuthenticator(new DefaultAuthenticator("usitripit1@gmail.com",
-					"usitripbdusa"));
-			htmlEmail.setFrom("DoNotReply@qq.com", "TestMail");
+			htmlEmail.setHostName(MailConstants.HOST_NAME);
+			htmlEmail.addTo(toMail, userName);
+			htmlEmail.setAuthenticator(new DefaultAuthenticator(MailConstants.SENDER_ADR,
+					MailConstants.SENDER_PAS));
+			htmlEmail.setFrom(MailConstants.SENDER_ADR, MailConstants.FROM_NAME);
 			htmlEmail.setSubject(title);
 			// htmlEmail.setSSLOnConnect(true);
 			htmlEmail.setStartTLSEnabled(true);
-			htmlEmail.setSmtpPort(587);
+			htmlEmail.setSmtpPort(MailConstants.SMTP_PORT);
 			htmlEmail.setCharset("utf-8");
 			// embed the image and get the content id
 
@@ -142,15 +142,15 @@ public class MailServiceDelegate {
 			String code = StringUtil.Encoder(toMail, "");
 			data.setVariable("unsubscribe", MailConstants.UNSUBSCRIBE_URL+toMail+"?code="+code);
 			emailContent = templateEngine.process(mailCategory, data);
-			htmlEmail.setHostName("smtp.gmail.com");
+			htmlEmail.setHostName(MailConstants.HOST_NAME);
 			htmlEmail.addTo(toMail, userName);
-			htmlEmail.setAuthenticator(new DefaultAuthenticator("usitripit1@gmail.com",
-					"usitripbdusa"));
-			htmlEmail.setFrom("DoNotReply@qq.com", "MailSystemTest");
+			htmlEmail.setAuthenticator(new DefaultAuthenticator(MailConstants.SENDER_ADR,
+					MailConstants.SENDER_PAS));
+			htmlEmail.setFrom(MailConstants.SENDER_ADR, MailConstants.FROM_NAME);
 			htmlEmail.setSubject(title);
 			// htmlEmail.setSSLOnConnect(true);
 			htmlEmail.setStartTLSEnabled(true);
-			htmlEmail.setSmtpPort(587);
+			htmlEmail.setSmtpPort(MailConstants.SMTP_PORT);
 			htmlEmail.setCharset("utf-8");
 			// embed the image and get the content id
 
