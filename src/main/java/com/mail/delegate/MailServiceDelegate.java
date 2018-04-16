@@ -195,7 +195,7 @@ public class MailServiceDelegate {
 		logger.info("Ready to send emails...");
 		List<String> emails = subscriberService.getEmails(MailConstants.SUBSCRIBED);
 		for (String emailAddr :emails) {
-			if (Pattern.matches(MailConstants.RULE_EMAIL, emailAddr)) {
+			if (emailAddr != null && !emailAddr.trim().isEmpty() && Pattern.matches(MailConstants.RULE_EMAIL, emailAddr)) {
 				String code = StringUtil.Encoder(emailAddr, "");
 				voQuery.getData().setVariable("unsubscribe", MailConstants.UNSUBSCRIBE_URL+emailAddr+"?code="+code);
 				String emailContent = templateEngine.process(voQuery.getMailCategory(), voQuery.getData());

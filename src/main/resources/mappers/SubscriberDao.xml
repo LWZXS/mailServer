@@ -4,9 +4,10 @@
 
 <mapper namespace="com.mail.dao.SubscriberDao">
 	<select id="getEmails" parameterType="int" resultType="string">
-		SELECT email
+		SELECT 
+			email
 		FROM
-		subscribed_test
+			hotel.subscriber
 		WHERE subscribed = #{subscribed}
 	</select>
 	
@@ -14,16 +15,15 @@
 		SELECT
 			*
 		FROM
-			subscriber
+			hotel.subscriber
 		WHERE email = #{email}	
 	</select>
 	
 	<update id="unsubscribeByEmail" parameterType="com.mail.entity.Subscriber">
 		UPDATE
-			subscriber
+			hotel.subscriber
 		SET
 			subscribed = #{subscribed}
-		WHERE
-			email = #{email}
+		WHERE email = #{email}
 	</update>
 </mapper>
