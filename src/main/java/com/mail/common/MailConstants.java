@@ -23,5 +23,5 @@ public class MailConstants {
 	public static final String SENDER_ADR = "hotel-order@usitrip.com";
 	public static final String SENDER_PAS = "117UsiHorde";
 	public static final Integer SMTP_PORT = 587;
-	public static final String FROM_NAME = "UsitripMailSystem";
+	public static final String FROM_NAME = "走四方旅游网";
 }
