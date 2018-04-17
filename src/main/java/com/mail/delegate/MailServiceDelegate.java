@@ -60,8 +60,10 @@ public class MailServiceDelegate {
 			htmlEmail.send();
 
 		} catch (EmailException e) {
-			logger.fatal("Failed to send email");
-			logger.fatal(e.toString());
+			logger.fatal("Failed to send email. Got EmailException:"+e.getMessage(),e);
+			status=1;
+		} catch (Exception e) {
+			logger.fatal("Failed to send email. Got Exception:"+e.getMessage(),e);
 			status=1;
 		} finally {
 			Date now = new Date();
