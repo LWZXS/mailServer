@@ -96,7 +96,8 @@ public class RestMailService {
 	@Produces("application/json")
 	public Response unsubscribeEmail(@PathParam("emailAddr") String emailAddr,@QueryParam("code") String code) {
 		String msg;
-
+		logger.info("emailAddr:"+emailAddr);
+		logger.info("code:"+code);
 		try {
 			String code2 = StringUtil.Encoder(emailAddr, "");
 			if(!code2.equals(code)){
