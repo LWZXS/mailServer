@@ -3,7 +3,7 @@ package com.mail.common;
 public class MailConstants {
 //	public static final String SCEDULEDEMAILINTERVAL = "0 0 6 1/1 * ? *"; //every day at 6:00
 	//public static final String SCEDULEDEMAILINTERVAL = "0 0 6 ? * TUE,FRI *";//every tue, fri at 6:00
-	public static final String SCEDULEDEMAILINTERVAL = "0 0 17 1/1 * ? *";//every day at 17:00
+	public static final String SCEDULEDEMAILINTERVAL = "0 45 17 * * ? *";//every day at 17:00
 //	public static final String SCEDULEDEMAILINTERVAL = "0 0/1 * 1/1 * ? *";//every one minute
 //	public static final String SCEDULEDEMAILINTERVAL = "0/5 * * * * ?";//every one second
 	
