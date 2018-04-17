@@ -16,7 +16,7 @@ public class MailConstants {
 
 	public static final String TUESTEMPLATE = "TUESDAYMail";
 	public static final String FRITEMPLATE = "FRIDAYMail";
-	public static final String UNSUBSCRIBE_URL = "http://hotelstest.usitrip.com/subscribe/cancel/";
+	public static final String UNSUBSCRIBE_URL = "http://hotel.usitrip.com/subscribe/cancel/";
 	
 
 	public static final String HOST_NAME = "smtp.exmail.qq.com";
