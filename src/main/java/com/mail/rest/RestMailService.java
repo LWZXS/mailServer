@@ -1,19 +1,10 @@
 package com.mail.rest;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
+import com.mail.common.EmailUtils;
+import com.mail.common.StringUtil;
+import com.mail.delegate.MailServiceDelegate;
+import com.mail.delegate.SubscriberService;
+import com.mail.entity.VoQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.quartz.SchedulerException;
@@ -21,14 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
-import com.mail.common.EmailUtils;
-import com.mail.common.StringUtil;
-import com.mail.delegate.MailServiceDelegate;
-import com.mail.delegate.SubscriberService;
-import com.mail.entity.VoQuery;
-
-
-
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @Path("/mail")
@@ -123,5 +111,12 @@ public class RestMailService {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("status", msg);
 		return Response.status(Status.OK).entity(result).build();
+	}
+
+	@POST
+	@Path("/sendOrderEmail")
+	@Produces("application/json")
+	public void test01(Map<String, Object> paramMap) {
+		System.out.println(paramMap);
 	}
 }
