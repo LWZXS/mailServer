@@ -128,8 +128,6 @@ public class RestMailService {
 		data.setVariable("orderId", orderId);
 		data.setVariable("ebUrl", MailConstants.EBURL);
 
-		System.out.println(paramMap);
-		System.out.println(mailServiceDelegate);
 		mailServiceDelegate.sendMailTest(toMail, MailConstants.NEWORDERTEMPLATE, mailServiceDelegate.selectTemplateBySubject(MailConstants.NEWORDERTEMPLATE).getTemplate_title(), "usitrip", data);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("status", "true");
