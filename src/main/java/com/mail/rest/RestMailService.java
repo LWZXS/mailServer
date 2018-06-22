@@ -121,13 +121,15 @@ public class RestMailService {
 		Map<String, Object> dataMap = (Map<String, Object>) paramMap.get("data");
 		String toMail = (String) dataMap.get("toMail");
 		String hotelName = (String) dataMap.get("hotelName");
-		String orderId = (String) dataMap.get("orderId");
+		String orderId = String.valueOf(dataMap.get("orderId"));
 
 		Context data = new Context();
 		data.setVariable("hotelName", hotelName);
 		data.setVariable("orderId", orderId);
 		data.setVariable("ebUrl", MailConstants.EBURL);
 
+		System.out.println(paramMap);
+		System.out.println(mailServiceDelegate);
 		mailServiceDelegate.sendMailTest(toMail, MailConstants.NEWORDERTEMPLATE, mailServiceDelegate.selectTemplateBySubject(MailConstants.NEWORDERTEMPLATE).getTemplate_title(), "usitrip", data);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("status", "true");
@@ -152,4 +154,10 @@ public class RestMailService {
 		return Response.status(Status.OK).entity(result).build();
 	}
 
+	@GET
+	@Path("/test")
+	@Produces("application/json")
+	public void test() {
+		System.out.println("RestMailService.test......");
+	}
 }
