@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import com.mail.entity.Template;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -26,8 +27,6 @@ import com.mail.entity.VoQuery;
 
 @Service
 public class MailServiceDelegate {
-	@Autowired
-	private TemplateDao templateDao;
 	@Autowired
 	private SendMailDao sendMailDao;
 	@Autowired
@@ -186,16 +185,16 @@ public class MailServiceDelegate {
 		return ret;
 	}
 	
-	private SubscriberService subscriberService;
+	private MailService mailService;
 	
 	@Autowired
-	public void setSubscriberService(SubscriberService subscriberService) {
-		this.subscriberService = subscriberService;
+	public void setMailService(MailService mailService) {
+		this.mailService = mailService;
 	}
 
 	public void sendMail(VoQuery voQuery) throws Exception {
 		logger.info("Ready to send emails...");
-		List<String> emails = subscriberService.getEmails(MailConstants.SUBSCRIBED);
+		List<String> emails = mailService.getEmails(MailConstants.SUBSCRIBED);
 		for (String emailAddr :emails) {
 			if (emailAddr != null && !emailAddr.trim().isEmpty() && Pattern.matches(MailConstants.RULE_EMAIL, emailAddr)) {
 				String code = StringUtil.Encoder(emailAddr, "");
@@ -205,5 +204,9 @@ public class MailServiceDelegate {
 			}
 		}
 		logger.info("Complete to send emails...");
+	}
+
+	public Template selectTemplateBySubject(String template_subject) {
+		return mailService.selectTemplateBySubject(template_subject);
 	}
 }
