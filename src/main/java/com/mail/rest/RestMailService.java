@@ -1,19 +1,11 @@
 package com.mail.rest;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
+import com.mail.common.EmailUtils;
+import com.mail.common.MailConstants;
+import com.mail.common.StringUtil;
+import com.mail.delegate.MailService;
+import com.mail.delegate.MailServiceDelegate;
+import com.mail.entity.VoQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.quartz.SchedulerException;
@@ -21,15 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
-import com.mail.common.EmailUtils;
-import com.mail.common.StringUtil;
-import com.mail.delegate.MailServiceDelegate;
-import com.mail.delegate.SubscriberService;
-import com.mail.entity.VoQuery;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import java.util.HashMap;
+import java.util.Map;
 
-
-
-
+@SuppressWarnings("all")
 @Service
 @Path("/mail")
 public class RestMailService {
@@ -38,10 +28,10 @@ public class RestMailService {
 	private MailServiceDelegate mailServiceDelegate;
 	private Logger logger = LogManager.getLogger(this.getClass().getName());
 	
-	private SubscriberService subscriberService;
+	private MailService mailService;
 	@Autowired
-	public void setSubscriberService(SubscriberService subscriberService) {
-		this.subscriberService = subscriberService;
+	public void setMailService(MailService mailService) {
+		this.mailService = mailService;
 	}
 
 	@GET
@@ -104,7 +94,7 @@ public class RestMailService {
 				msg = "fail";
 				logger.fatal("Don't have permit to unsubscribe this email..."+emailAddr);
 			}else{
-				if (subscriberService.unsubscribeEmail(emailAddr) == 1) {
+				if (mailService.unsubscribeEmail(emailAddr) == 1) {
 					//msg = "You have successfully unsubscribed!";
 					msg = "success";
 				}else {
@@ -114,7 +104,6 @@ public class RestMailService {
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			msg = "fail";
 			logger.fatal("unsub failed...",e);
 		}
@@ -123,5 +112,50 @@ public class RestMailService {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("status", msg);
 		return Response.status(Status.OK).entity(result).build();
+	}
+
+	@POST
+	@Path("/sendNewOrderEmail")
+	@Produces("application/json")
+	public Response sendNewOrderEmail(Map<String, Object> paramMap) throws Exception {
+		Map<String, Object> dataMap = (Map<String, Object>) paramMap.get("data");
+		String toMail = (String) dataMap.get("toMail");
+		String hotelName = (String) dataMap.get("hotelName");
+		String orderId = String.valueOf(dataMap.get("orderId"));
+
+		Context data = new Context();
+		data.setVariable("hotelName", hotelName);
+		data.setVariable("orderId", orderId);
+		data.setVariable("ebUrl", MailConstants.EBURL);
+
+		mailServiceDelegate.sendMailTest(toMail, MailConstants.NEWORDERTEMPLATE, mailServiceDelegate.selectTemplateBySubject(MailConstants.NEWORDERTEMPLATE).getTemplate_title(), "usitrip", data);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("status", "true");
+		return Response.status(Status.OK).entity(result).build();
+	}
+
+	@POST
+	@Path("/sendSoldOutEmail")
+	@Produces("application/json")
+	public Response sendSoldOutEmail(Map<String, Object> paramMap) throws Exception {
+		Map<String, Object> dataMap = (Map<String, Object>) paramMap.get("data");
+		String toMail = (String) dataMap.get("toMail");
+		String hotelName = (String) dataMap.get("hotelName");
+
+		Context data = new Context();
+		data.setVariable("hotelName", hotelName);
+		data.setVariable("ebUrl", MailConstants.EBURL);
+
+		mailServiceDelegate.sendMailTest(toMail, MailConstants.SOLDOUTTEMPLATE, mailServiceDelegate.selectTemplateBySubject(MailConstants.SOLDOUTTEMPLATE).getTemplate_title(), "usitrip", data);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("status", "true");
+		return Response.status(Status.OK).entity(result).build();
+	}
+
+	@GET
+	@Path("/test")
+	@Produces("application/json")
+	public void test() {
+		System.out.println("RestMailService.test......");
 	}
 }
