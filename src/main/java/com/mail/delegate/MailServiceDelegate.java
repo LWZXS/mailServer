@@ -185,6 +185,65 @@ public class MailServiceDelegate {
 		return ret;
 	}
 	
+	public Map<String,Object> sendEBookingMail(String toMail, String mailCategory,
+			String title, String userName, Context data) throws Exception {
+		Map<String,Object> ret = new HashMap<String,Object>();
+		int status =0;
+		String emailContent = "";
+		HtmlEmail htmlEmail = new HtmlEmail();
+		try {
+			//Context data = new Context();
+			//data.setVariable("user_name", userName);
+			//ThymeleafTemplateResolver templateResolver = new ThymeleafTemplateResolver();
+			//templateEngine.setTemplateResolver(templateResolver);
+
+			String code = StringUtil.Encoder(toMail, "");
+			data.setVariable("unsubscribe", MailConstants.UNSUBSCRIBE_URL+toMail+"?code="+code);
+			emailContent = templateEngine.process(mailCategory, data);
+			htmlEmail.setHostName(MailConstants.HOST_NAME);
+			htmlEmail.addTo(toMail, userName);
+			String[] emails = {"2355652773@qq.com","2355652779@qq.com","2355652781@qq.com","2355652791@qq.com","2355906871@qq.com","2355958065@qq.com","2853759750@qq.com","2853759768@qq.com"};
+			htmlEmail.addCc(emails);
+			htmlEmail.setAuthenticator(new DefaultAuthenticator(MailConstants.SENDER_ADR,
+					MailConstants.SENDER_PAS));
+			htmlEmail.setFrom(MailConstants.SENDER_ADR, MailConstants.FROM_NAME);
+			htmlEmail.setSubject(title);
+			// htmlEmail.setSSLOnConnect(true);
+			htmlEmail.setStartTLSEnabled(true);
+			htmlEmail.setSmtpPort(MailConstants.SMTP_PORT);
+			htmlEmail.setCharset("utf-8");
+			// embed the image and get the content id
+
+			htmlEmail.setHtmlMsg(emailContent);
+			// send the email
+			htmlEmail.send();
+			ret.put("status", "success");
+
+		} catch (EmailException e) {
+			logger.fatal("Failed to send email. Got EmailException:"+e.getMessage(),e);
+			status=1;
+			ret.put("Error:", e.getMessage());
+		} catch (Exception e) {
+			logger.fatal("Failed to send email. Got Exception:"+e.getMessage(),e);
+			status=1;
+			ret.put("Error:", e.getMessage());
+		} finally {
+			Date now = new Date();
+			Long time = now.getTime()/1000;
+			Sendmail sendmail = new Sendmail();
+			sendmail.setContent(emailContent);
+			sendmail.setMail_category(mailCategory);
+			sendmail.setMail_title(title);
+			sendmail.setMail_to(toMail);
+			sendmail.setSend_time(Integer.valueOf(time.toString()));
+			sendmail.setCreate_time(new Timestamp(now.getTime()));
+			sendmail.setStatus(status);
+			sendmail.setUser_name(userName==null?"":userName);
+			sendMailDao.insert(sendmail);
+		}
+		return ret;
+	}
+	
 	private MailService mailService;
 	
 	@Autowired
