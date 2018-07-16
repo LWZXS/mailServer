@@ -127,8 +127,9 @@ public class RestMailService {
 		data.setVariable("hotelName", hotelName);
 		data.setVariable("orderId", orderId);
 		data.setVariable("ebUrl", MailConstants.EBURL);
+		data.setVariable("user_name", "Chris");
 
-		mailServiceDelegate.sendMailTest(toMail, MailConstants.NEWORDERTEMPLATE, mailServiceDelegate.selectTemplateBySubject(MailConstants.NEWORDERTEMPLATE).getTemplate_title(), "usitrip", data);
+		mailServiceDelegate.sendMailTest(toMail, MailConstants.NEWORDERTEMPLATE, mailServiceDelegate.selectTemplateBySubject(MailConstants.NEWORDERTEMPLATE).getTemplate_title(), "Chris Zhang", data);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("status", "true");
 		return Response.status(Status.OK).entity(result).build();
@@ -145,8 +146,9 @@ public class RestMailService {
 		Context data = new Context();
 		data.setVariable("hotelName", hotelName);
 		data.setVariable("ebUrl", MailConstants.EBURL);
+		data.setVariable("user_name", "Chris");
 
-		mailServiceDelegate.sendMailTest(toMail, MailConstants.SOLDOUTTEMPLATE, mailServiceDelegate.selectTemplateBySubject(MailConstants.SOLDOUTTEMPLATE).getTemplate_title(), "usitrip", data);
+		mailServiceDelegate.sendMailTest(toMail, MailConstants.SOLDOUTTEMPLATE, mailServiceDelegate.selectTemplateBySubject(MailConstants.SOLDOUTTEMPLATE).getTemplate_title(), "Chris Zhang", data);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("status", "true");
 		return Response.status(Status.OK).entity(result).build();

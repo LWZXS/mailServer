@@ -53,7 +53,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -133,27 +133,16 @@
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-redis:1.5.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context-support:4.0.9.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: javax.mail:mail:1.4" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.resteasy:resteasy-client:3.0.14.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.1.4.GA" level="project" />
     <orderEntry type="library" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-email:1.4" level="project" />
     <orderEntry type="library" name="Maven: com.sun.mail:javax.mail:1.5.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jboss.resteasy:resteasy-multipart-provider:2.2.0.GA" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jboss.resteasy:resteasy-jaxb-provider:2.2.0.GA" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.sun.xml.bind:jaxb-impl:2.1.12" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.xml.bind:jaxb-api:2.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.sun.xml.stream:sjsxp:1.0.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.xml.stream:stax-api:1.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.james:apache-mime4j:0.6" level="project" />
     <orderEntry type="library" name="Maven: org.quartz-scheduler:quartz:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: com.mchange:c3p0:0.9.5.2" level="project" />
     <orderEntry type="library" name="Maven: com.mchange:mchange-commons-java:0.2.11" level="project" />
     <orderEntry type="library" name="Maven: com.zaxxer:HikariCP-java6:2.3.13" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:4.2.0.RELEASE" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jboss.resteasy:resteasy-jackson-provider:3.5.1.Final" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.codehaus.jackson:jackson-jaxrs:1.9.13" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.codehaus.jackson:jackson-xc:1.9.13" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.resteasy:resteasy-servlet-initializer:3.5.1.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_2.1_spec:1.0.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.3.1.Final" level="project" />
   </component>
 </module>
