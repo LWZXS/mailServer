@@ -25,7 +25,7 @@ public class MailConstants {
 	public static final Integer SMTP_PORT = 587;
 	public static final String FROM_NAME = "走四方旅游网";
 
-	public static final String EBURL = "http://192.168.1.245";
+	public static final String EBURL = "http://ebooking.117book.com";
 	public static final String NEWORDERTEMPLATE = "newOrderMail";
 	public static final String SOLDOUTTEMPLATE = "soldOutTemplate";
 }
