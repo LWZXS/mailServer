@@ -128,25 +128,28 @@ public class RestMailService {
     @POST
     @Path("/sendSoldOutEmail")
     @Produces("application/json")
-    public Response sendSoldOutEmail(Map<String, Object> paramMap) throws Exception {
-        Map<String, Object> dataMap = (Map<String, Object>) paramMap.get("data");
-        String toMail = (String) dataMap.get("toMail");
-        String hotelName = (String) dataMap.get("hotelName");
-
-        Context data = new Context();
-        data.setVariable("hotelName", hotelName);
-        data.setVariable("ebUrl", MailConstants.URL_EB);
-
-        mailServiceDelegate.sendEBookingMail(toMail, MailConstants.SOLDOUTTEMPLATE_EB, mailServiceDelegate.selectTemplateBySubject(MailConstants.SOLDOUTTEMPLATE_EB).getTemplate_title(), "usitrip", data);
+    public Response sendSoldOutEmail(Map<String, Object> paramMap) {
         Map<String, Object> result = new HashMap<String, Object>();
-        result.put("status", "true");
+        try {
+            Map<String, Object> dataMap = (Map<String, Object>) paramMap.get("data");
+            String toMail = (String) dataMap.get("toMail");
+            String hotelName = (String) dataMap.get("hotelName");
+            Context data = new Context();
+            data.setVariable("hotelName", hotelName);
+            data.setVariable("ebUrl", MailConstants.URL_EB);
+            mailServiceDelegate.sendEBookingMail(toMail, MailConstants.SOLDOUTTEMPLATE_EB_EN, mailServiceDelegate.selectTemplateBySubject(MailConstants.SOLDOUTTEMPLATE_EB_EN).getTemplate_title(), "usitrip", data);
+            result.put("status", "true");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("status", "error(" + e.getMessage() + ")");
+        }
         return Response.status(Status.OK).entity(result).build();
     }
 
     @POST
     @Path("/sendCancelledEmail")
     @Produces("application/json")
-    public Response sendCancelledEmail(Map<String, Object> paramMap) throws Exception {
+    public Response sendCancelledEmail(Map<String, Object> paramMap) {
         return sendEmail4Order(paramMap, "CANCELLEDORDERTEMPLATE");
     }
 
@@ -191,7 +194,7 @@ public class RestMailService {
                     String status = String.valueOf(dataMap.get("status"));
                     if (status.contains("CONFIRMED") || status.contains("确认")) {
                         title = String.valueOf(MailConstants.class.getDeclaredField(orderTemplatePrefix + "_TITLEC_" + host + "_" + language).get(null));
-                    }else {
+                    } else {
                         title = String.valueOf(MailConstants.class.getDeclaredField(orderTemplatePrefix + "_TITLEO_" + host + "_" + language).get(null));
                     }
                     map.put("title", title.replaceAll("[*]{3}", String.valueOf(dataMap.get("orderId"))));

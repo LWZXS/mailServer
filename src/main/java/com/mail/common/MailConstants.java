@@ -27,7 +27,7 @@ public class MailConstants {
 
 	public static final String URL_EB = "http://ebooking.117book.com";
 	public static final String NEWORDERTEMPLATE_EB_EN = "ebookingNewOrder";
-	public static final String SOLDOUTTEMPLATE_EB = "ebookingSoldOut";
+	public static final String SOLDOUTTEMPLATE_EB_EN = "ebookingSoldOut";
 
 	//USITOUR
 	public static final String NEWORDERTEMPLATE_USITOUR_EN = "usitourNewOrderEN";
