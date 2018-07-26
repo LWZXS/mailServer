@@ -207,7 +207,7 @@ public class RestMailService {
                     result = mailServiceDelegate.sendEBookingMail(toMail, orderTemplate, mailServiceDelegate.selectTemplateBySubject(orderTemplate).getTemplate_title(), "usitrip", data);
                 }
             } catch (Exception e) {
-                logger.error(e.getMessage());
+                e.printStackTrace();
                 result.put("status", "error(" + e.getMessage() + ")");
             }
         } else {
