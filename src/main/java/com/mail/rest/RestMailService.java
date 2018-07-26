@@ -169,7 +169,7 @@ public class RestMailService {
                     String host = String.valueOf(dataMap.get("host")).toUpperCase();
                     language = String.valueOf(dataMap.get("language")).toUpperCase();
                     Integer partner = Integer.parseInt(dataMap.get("partner").toString());
-                    String end = partner == 11087 ? "USITRIP" : "117BOOK";
+                    String end = partner == 11087 ? host : "117BOOK";
 
                     Map<String, String> map = new HashMap<String, String>();
                     orderTemplate = String.valueOf(MailConstants.class.getDeclaredField(orderTemplatePrefix + "_" + host + "_" + language).get(null));
