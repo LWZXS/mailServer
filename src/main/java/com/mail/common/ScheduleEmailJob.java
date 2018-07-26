@@ -43,9 +43,9 @@ public class ScheduleEmailJob extends ScheduleJob {
 			sendEmailByCondition(voQuery);
 
 		} catch (SchedulerException e) {
-			logger.fatal("Some exceptions happend on fetching a scheduler context");
+			logger.fatal("Some exceptions happened on fetching a scheduler context");
 		} catch (Exception e) {
-			logger.fatal("Some exceptions happend on sending emails");
+			logger.fatal("Some exceptions happened on sending emails");
 		}
 	}
 
