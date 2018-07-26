@@ -260,7 +260,7 @@ public class MailServiceDelegate {
             emailContent = templateEngine.process(map.get("template"), data);
             htmlEmail.setHostName(map.get("host"));
             htmlEmail.addTo(map.get("recipientAddress"), map.get("recipientName"));
-//            htmlEmail.addBcc(MailConstants.MAIL_UU1_CC);
+            htmlEmail.addBcc(MailConstants.MAIL_UU1_CC);
             htmlEmail.setAuthenticator(new DefaultAuthenticator(map.get("senderAddress"), map.get("senderPwd")));
             htmlEmail.setFrom(map.get("senderAddress"), map.get("senderName"));
             htmlEmail.setSubject(map.get("title"));
