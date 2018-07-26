@@ -34,7 +34,7 @@ public class ThymeleafTemplateResolver extends TemplateResolver {
 	        public InputStream getResourceAsStream(TemplateProcessingParameters params, String template) {
 	        	TemplateDao thymeleaftemplateDao = ApplicationContextProvider.getApplicationContext().getBean(TemplateDao.class);
 	            Template thymeleafTemplate = thymeleaftemplateDao.selectTemplateBySubject(template);
-	            if (thymeleafTemplate != null) {
+				if (thymeleafTemplate != null) {
 	                return new ByteArrayInputStream(thymeleafTemplate.getTemplate_content().getBytes());
 	            }
 	            return null;
