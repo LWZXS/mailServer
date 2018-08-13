@@ -1,13 +1,11 @@
 package com.mail.delegate;
 
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
-
+import com.mail.common.MailConstants;
+import com.mail.common.StringUtil;
+import com.mail.dao.SendMailDao;
+import com.mail.entity.Sendmail;
 import com.mail.entity.Template;
+import com.mail.entity.VoQuery;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -18,17 +16,12 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.mail.common.MailConstants;
-import com.mail.common.StringUtil;
-import com.mail.dao.SendMailDao;
-import com.mail.dao.TemplateDao;
-import com.mail.entity.Sendmail;
-import com.mail.entity.VoQuery;
-
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.MimeMessage;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 @Service
 public class MailServiceDelegate {

@@ -39,8 +39,8 @@ public class MailConstants {
 
 	public static final String MAIL_HOST_USITOUR = "smtp.exmail.qq.com";
 	public static final Integer MAIL_PORT_USITOUR = 25;
-	public static final String MAIL_USERNAME_USITOUR = "hotel-order@usitrip.com";
-	public static final String MAIL_PASSWORD_USITOUR = "117UsiHorde";
+	public static final String MAIL_USERNAME_USITOUR = "service@usitour.com";
+	public static final String MAIL_PASSWORD_USITOUR = "UsiSv8818$";
 	public static final String MAIL_ENCRYPTION_USITOUR = "tls";
 
 	public static final String MAIL_UU1_CC = "2355958065@qq.com";

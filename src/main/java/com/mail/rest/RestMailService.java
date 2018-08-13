@@ -8,19 +8,23 @@ import com.mail.delegate.MailServiceDelegate;
 import com.mail.entity.VoQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Test;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.junit.Test;
 import org.thymeleaf.context.Context;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.function.IntConsumer;
+import java.util.function.IntFunction;
+import java.util.function.Supplier;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @SuppressWarnings("all")
 @Service
@@ -221,9 +225,46 @@ public class RestMailService {
     @Produces("application/json")
     public void test() throws Exception {
         Context data = new Context();
+
         data.setVariable("status", "status test status test");
         data.setVariable("orderId", 123456);
         data.setVariable("voucher", "http://ebooking.117book.com");
-        mailServiceDelegate.sendMailTest("2355652781@qq.com", "usitripNewOrderEN", "test", "usitrip", data);
+
+        System.out.println("RestMailService.test...");
+    }
+
+    @Test
+    public void test02() {
+        Map<Integer, String> collect = Stream.of("one", "two", "three", "four")
+                .filter(e -> e.length() > 3)
+                .peek(e -> System.out.println("Filtered value: " + e))
+                .map(String::toUpperCase)
+                .peek(e -> System.out.println("Mapped value: " + e))
+                .collect(Collectors.toMap(String::length, String::toString));
+
+        System.out.println(collect);
+        Stream<Double> doubleStream = Stream.of(new Double[]{1.0, 12.4, -22.3});
+
+        Random seed = new Random();
+        Supplier<Integer> random = seed::nextInt;
+//        Stream.generate(random).limit(10).forEach(System.out::println);
+
+        List<List<Integer>> list = new ArrayList<>();
+        list.add(Arrays.asList(1));
+        list.add(Arrays.asList(2, 3));
+        list.add(Arrays.asList(4, 5, 6));
+        IntSummaryStatistics intSummaryStatistics = Stream.of(list)
+                .flatMap(childList -> childList.stream())
+                .flatMap(childList -> childList.stream())
+                .mapToInt(e -> e)
+                .filter(e -> e > 3)
+                .peek(e -> System.out.println(e))
+                .summaryStatistics();
+
+        System.out.println(intSummaryStatistics.getMax());
+        System.out.println(intSummaryStatistics.getAverage());
+
+        Arrays.stream(new int[]{1, 2, 3});
+
     }
 }
