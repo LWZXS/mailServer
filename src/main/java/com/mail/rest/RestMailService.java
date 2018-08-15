@@ -195,7 +195,7 @@ public class RestMailService {
                     map.put("recipientName", recipientName);
 
                     String title = "";
-                    String status = String.valueOf(dataMap.get("status"));
+                    String status = String.valueOf(dataMap.get("status")).toUpperCase();
                     if (status.contains("CONFIRMED") || status.contains("确认")) {
                         title = String.valueOf(MailConstants.class.getDeclaredField(orderTemplatePrefix + "_TITLEC_" + host + "_" + language).get(null));
                     } else {
