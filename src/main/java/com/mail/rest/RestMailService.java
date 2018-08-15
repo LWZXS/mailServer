@@ -223,7 +223,9 @@ public class RestMailService {
     @GET
     @Path("/test")
     @Produces("application/json")
-    public void test() throws Exception {
-        System.out.println("RestMailService.test...");
+    public Response test() throws Exception {
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("status", "test email apis...");
+        return Response.status(Status.OK).entity(result).build();
     }
 }
