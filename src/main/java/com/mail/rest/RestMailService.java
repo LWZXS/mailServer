@@ -8,19 +8,23 @@ import com.mail.delegate.MailServiceDelegate;
 import com.mail.entity.VoQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.testng.annotations.Test;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.junit.Test;
 import org.thymeleaf.context.Context;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.function.IntConsumer;
+import java.util.function.IntFunction;
+import java.util.function.Supplier;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @SuppressWarnings("all")
 @Service
@@ -128,25 +132,28 @@ public class RestMailService {
     @POST
     @Path("/sendSoldOutEmail")
     @Produces("application/json")
-    public Response sendSoldOutEmail(Map<String, Object> paramMap) throws Exception {
-        Map<String, Object> dataMap = (Map<String, Object>) paramMap.get("data");
-        String toMail = (String) dataMap.get("toMail");
-        String hotelName = (String) dataMap.get("hotelName");
-
-        Context data = new Context();
-        data.setVariable("hotelName", hotelName);
-        data.setVariable("ebUrl", MailConstants.URL_EB);
-
-        mailServiceDelegate.sendEBookingMail(toMail, MailConstants.SOLDOUTTEMPLATE_EB, mailServiceDelegate.selectTemplateBySubject(MailConstants.SOLDOUTTEMPLATE_EB).getTemplate_title(), "usitrip", data);
+    public Response sendSoldOutEmail(Map<String, Object> paramMap) {
         Map<String, Object> result = new HashMap<String, Object>();
-        result.put("status", "true");
+        try {
+            Map<String, Object> dataMap = (Map<String, Object>) paramMap.get("data");
+            String toMail = (String) dataMap.get("toMail");
+            String hotelName = (String) dataMap.get("hotelName");
+            Context data = new Context();
+            data.setVariable("hotelName", hotelName);
+            data.setVariable("ebUrl", MailConstants.URL_EB);
+            mailServiceDelegate.sendEBookingMail(toMail, MailConstants.SOLDOUTTEMPLATE_EB_EN, mailServiceDelegate.selectTemplateBySubject(MailConstants.SOLDOUTTEMPLATE_EB_EN).getTemplate_title(), "usitrip", data);
+            result.put("status", "true");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("status", "error(" + e.getMessage() + ")");
+        }
         return Response.status(Status.OK).entity(result).build();
     }
 
     @POST
     @Path("/sendCancelledEmail")
     @Produces("application/json")
-    public Response sendCancelledEmail(Map<String, Object> paramMap) throws Exception {
+    public Response sendCancelledEmail(Map<String, Object> paramMap) {
         return sendEmail4Order(paramMap, "CANCELLEDORDERTEMPLATE");
     }
 
@@ -169,7 +176,7 @@ public class RestMailService {
                     String host = String.valueOf(dataMap.get("host")).toUpperCase();
                     language = String.valueOf(dataMap.get("language")).toUpperCase();
                     Integer partner = Integer.parseInt(dataMap.get("partner").toString());
-                    String end = partner == 11087 ? "USITRIP" : "117BOOK";
+                    String end = partner == 11087 ? host : "117BOOK";
 
                     Map<String, String> map = new HashMap<String, String>();
                     orderTemplate = String.valueOf(MailConstants.class.getDeclaredField(orderTemplatePrefix + "_" + host + "_" + language).get(null));
@@ -188,10 +195,10 @@ public class RestMailService {
                     map.put("recipientName", recipientName);
 
                     String title = "";
-                    String status = String.valueOf(dataMap.get("status"));
+                    String status = String.valueOf(dataMap.get("status")).toUpperCase();
                     if (status.contains("CONFIRMED") || status.contains("确认")) {
                         title = String.valueOf(MailConstants.class.getDeclaredField(orderTemplatePrefix + "_TITLEC_" + host + "_" + language).get(null));
-                    }else {
+                    } else {
                         title = String.valueOf(MailConstants.class.getDeclaredField(orderTemplatePrefix + "_TITLEO_" + host + "_" + language).get(null));
                     }
                     map.put("title", title.replaceAll("[*]{3}", String.valueOf(dataMap.get("orderId"))));
@@ -204,7 +211,7 @@ public class RestMailService {
                     result = mailServiceDelegate.sendEBookingMail(toMail, orderTemplate, mailServiceDelegate.selectTemplateBySubject(orderTemplate).getTemplate_title(), "usitrip", data);
                 }
             } catch (Exception e) {
-                logger.error(e.getMessage());
+                e.printStackTrace();
                 result.put("status", "error(" + e.getMessage() + ")");
             }
         } else {
@@ -216,11 +223,9 @@ public class RestMailService {
     @GET
     @Path("/test")
     @Produces("application/json")
-    public void test() throws Exception {
-        Context data = new Context();
-        data.setVariable("status", "status test status test");
-        data.setVariable("orderId", 123456);
-        data.setVariable("voucher", "http://ebooking.117book.com");
-        mailServiceDelegate.sendMailTest("2355652781@qq.com", "usitripNewOrderEN", "test", "usitrip", data);
+    public Response test() throws Exception {
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("status", "test email apis...");
+        return Response.status(Status.OK).entity(result).build();
     }
 }

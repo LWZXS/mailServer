@@ -27,7 +27,7 @@ public class MailConstants {
 
 	public static final String URL_EB = "http://ebooking.117book.com";
 	public static final String NEWORDERTEMPLATE_EB_EN = "ebookingNewOrder";
-	public static final String SOLDOUTTEMPLATE_EB = "ebookingSoldOut";
+	public static final String SOLDOUTTEMPLATE_EB_EN = "ebookingSoldOut";
 
 	//USITOUR
 	public static final String NEWORDERTEMPLATE_USITOUR_EN = "usitourNewOrderEN";
@@ -39,8 +39,8 @@ public class MailConstants {
 
 	public static final String MAIL_HOST_USITOUR = "smtp.exmail.qq.com";
 	public static final Integer MAIL_PORT_USITOUR = 25;
-	public static final String MAIL_USERNAME_USITOUR = "hotel-order@usitrip.com";
-	public static final String MAIL_PASSWORD_USITOUR = "117UsiHorde";
+	public static final String MAIL_USERNAME_USITOUR = "service@usitour.com";
+	public static final String MAIL_PASSWORD_USITOUR = "UsiSv8818$";
 	public static final String MAIL_ENCRYPTION_USITOUR = "tls";
 
 	public static final String MAIL_UU1_CC = "2355958065@qq.com";
@@ -51,11 +51,11 @@ public class MailConstants {
 	public static final String CANCELLEDORDERTEMPLATE_USITRIP_CN = "usitripCancelledOrderCN";
 	public static final String NEWORDERTEMPLATE_TITLEC_USITRIP_EN = "Usitrip Hotel Confirmation - (Booking#***)";
 	public static final String NEWORDERTEMPLATE_TITLEO_USITRIP_EN = "Usitrip Hotel is in processing - (Booking#***)";
-	public static final String NEWORDERTEMPLATE_TITLEC_USITRIP_CN = "Usitrip走四方酒店预订确认 - (订单号***)";
-	public static final String NEWORDERTEMPLATE_TITLEO_USITRIP_CN = "Usitrip走四方酒店预订正在处理 - (订单号***)";
+	public static final String NEWORDERTEMPLATE_TITLEC_USITRIP_CN = "Usitrip走四方酒店 - 预订确认(订单号***)";
+	public static final String NEWORDERTEMPLATE_TITLEO_USITRIP_CN = "Usitrip走四方酒店 - 预订正在处理(订单号***)";
 
 	public static final String CANCELLEDORDERTEMPLATE_TITLEO_USITRIP_EN = "Usitrip Hotel Cancellation - (Booking#***)";
-	public static final String CANCELLEDORDERTEMPLATE_TITLEO_USITRIP_CN = "Usitrip走四方酒店取消确认 - (订单号***)";
+	public static final String CANCELLEDORDERTEMPLATE_TITLEO_USITRIP_CN = "Usitrip走四方酒店 - 取消确认(订单号***)";
 
 	public static final String MAIL_HOST_USITRIP = "smtp.exmail.qq.com";
 	public static final Integer MAIL_PORT_USITRIP = 25;
@@ -70,11 +70,11 @@ public class MailConstants {
 	public static final String CANCELLEDORDERTEMPLATE_117BOOK_CN = "117CancelledOrderCN";
 	public static final String NEWORDERTEMPLATE_TITLEC_117BOOK_EN = "117book Hotel Confirmation - (Booking#***)";
 	public static final String NEWORDERTEMPLATE_TITLEO_117BOOK_EN = "117book Hotel is in processing - (Booking#***)";
-	public static final String NEWORDERTEMPLATE_TITLEC_117BOOK_CN = "117book要趣订酒店预订确认 - (订单号***)";
-	public static final String NEWORDERTEMPLATE_TITLEO_117BOOK_CN = "117book要趣订酒店预订正在处理 - (订单号***)";
+	public static final String NEWORDERTEMPLATE_TITLEC_117BOOK_CN = "117book要趣订酒店 - 预订确认(订单号***)";
+	public static final String NEWORDERTEMPLATE_TITLEO_117BOOK_CN = "117book要趣订酒店 - 预订正在处理(订单号***)";
 
 	public static final String CANCELLEDORDERTEMPLATE_TITLEO_117BOOK_EN = "117book Hotel Cancellation - (Booking#***)";
-	public static final String CANCELLEDORDERTEMPLATE_TITLEO_117BOOK_CN = "117book要趣订酒店取消确认 - (订单号***)";
+	public static final String CANCELLEDORDERTEMPLATE_TITLEO_117BOOK_CN = "117book要趣订酒店 - 取消确认(订单号***)";
 
 	public static final String MAIL_HOST_117BOOK = "smtp.exmail.qq.com";
 	public static final Integer MAIL_PORT_117BOOK = 25;
