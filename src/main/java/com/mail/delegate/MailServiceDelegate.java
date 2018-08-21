@@ -198,19 +198,18 @@ public class MailServiceDelegate {
             //templateEngine.setTemplateResolver(templateResolver);
 
             String code = StringUtil.Encoder(toMail, "");
-            data.setVariable("unsubscribe", MailConstants.UNSUBSCRIBE_URL + toMail + "?code=" + code);
             emailContent = templateEngine.process(mailCategory, data);
-            htmlEmail.setHostName(MailConstants.HOST_NAME);
+            htmlEmail.setHostName(MailConstants.MAIL_HOST_117BOOK);
             htmlEmail.addTo(toMail, userName);
             String[] emails = {"2355652773@qq.com", "2355652779@qq.com", "2355652781@qq.com", "2355652791@qq.com", "2355906871@qq.com", "2355958065@qq.com", "2853759750@qq.com", "2853759768@qq.com"};
             htmlEmail.addCc(emails);
-            htmlEmail.setAuthenticator(new DefaultAuthenticator(MailConstants.SENDER_ADR,
-                    MailConstants.SENDER_PAS));
-            htmlEmail.setFrom(MailConstants.SENDER_ADR, MailConstants.FROM_NAME);
+            htmlEmail.setAuthenticator(new DefaultAuthenticator(MailConstants.MAIL_USERNAME_117BOOK,
+                    MailConstants.MAIL_PASSWORD_117BOOK));
+            htmlEmail.setFrom(MailConstants.MAIL_USERNAME_117BOOK, MailConstants.FROM_NAME_EB_EN);
             htmlEmail.setSubject(title);
             // htmlEmail.setSSLOnConnect(true);
             htmlEmail.setStartTLSEnabled(true);
-            htmlEmail.setSmtpPort(MailConstants.SMTP_PORT);
+            htmlEmail.setSmtpPort(MailConstants.MAIL_PORT_117BOOK);
             htmlEmail.setCharset("utf-8");
             // embed the image and get the content id
 
