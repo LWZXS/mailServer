@@ -135,7 +135,7 @@ public class RestMailService {
             Context data = new Context();
             data.setVariable("hotelName", hotelName);
             data.setVariable("ebUrl", MailConstants.URL_EB);
-            mailServiceDelegate.sendEBookingMail(toMail, MailConstants.SOLDOUTTEMPLATE_EB_EN, mailServiceDelegate.selectTemplateBySubject(MailConstants.SOLDOUTTEMPLATE_EB_EN).getTemplate_title(), "usitrip", data);
+            mailServiceDelegate.sendEBookingSoldOutMail(toMail, MailConstants.SOLDOUTTEMPLATE_EB_EN, mailServiceDelegate.selectTemplateBySubject(MailConstants.SOLDOUTTEMPLATE_EB_EN).getTemplate_title(), "usitrip", data);
             result.put("status", "true");
         } catch (Exception e) {
             e.printStackTrace();

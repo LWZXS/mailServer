@@ -64,7 +64,7 @@ public class MailConstants {
 	public static final String MAIL_PASSWORD_USITRIP = "117UsiHorde";
 	public static final String MAIL_ENCRYPTION_USITRIP = "tls";
 
-	//117BOOK/
+	//117BOOK(sender address is used for e-booking as well)
 	public static final String NEWORDERTEMPLATE_117BOOK_EN = "117NewOrderEN";
 	public static final String NEWORDERTEMPLATE_117BOOK_CN = "117NewOrderCN";
 	public static final String CANCELLEDORDERTEMPLATE_117BOOK_EN = "117CancelledOrderEN";
@@ -82,5 +82,11 @@ public class MailConstants {
 	public static final String MAIL_USERNAME_117BOOK = "noreply@117book.com";
 	public static final String MAIL_PASSWORD_117BOOK = "Usi117#book";
 	public static final String MAIL_ENCRYPTION_117BOOK = "tls";
+
+	//EBooking sold out
+	public static final String MAIL_HOST_SOLDOUT_EB = "smtp.gmail.com";
+	public static final Integer MAIL_PORT_SOLDOUT_EB = 587;
+	public static final String MAIL_USERNAME_SOLDOUT_EB = "usitripit1@gmail.com";
+	public static final String MAIL_PASSWORD_SOLDOUT_EB = "usitripbdusa";
 
 }

@@ -290,6 +290,56 @@ public class MailServiceDelegate {
         return ret;
     }
 
+    public Map<String, Object> sendEBookingSoldOutMail(String toMail, String mailCategory,
+                                                String title, String userName, Context data) throws Exception {
+        Map<String, Object> ret = new HashMap<String, Object>();
+        int status = 0;
+        String emailContent = "";
+        HtmlEmail htmlEmail = new HtmlEmail();
+        try {
+            String code = StringUtil.Encoder(toMail, "");
+            emailContent = templateEngine.process(mailCategory, data);
+            htmlEmail.setHostName(MailConstants.MAIL_HOST_SOLDOUT_EB);
+            htmlEmail.addTo(toMail, userName);
+            String[] emails = {"2355652773@qq.com", "2355652779@qq.com", "2355652781@qq.com", "2355652791@qq.com", "2355906871@qq.com", "2355958065@qq.com", "2853759750@qq.com", "2853759768@qq.com"};
+            htmlEmail.addCc(emails);
+            htmlEmail.setAuthenticator(new DefaultAuthenticator(MailConstants.MAIL_USERNAME_SOLDOUT_EB,
+                    MailConstants.MAIL_PASSWORD_SOLDOUT_EB));
+            htmlEmail.setFrom(MailConstants.MAIL_USERNAME_SOLDOUT_EB, MailConstants.FROM_NAME_EB_EN);
+            htmlEmail.setSubject(title);
+            htmlEmail.setStartTLSEnabled(true);
+            htmlEmail.setSmtpPort(MailConstants.MAIL_PORT_SOLDOUT_EB);
+            htmlEmail.setCharset("utf-8");
+
+            htmlEmail.setHtmlMsg(emailContent);
+            htmlEmail.send();
+            ret.put("status", "success");
+
+        } catch (EmailException e) {
+            logger.fatal("Failed to send email. Got EmailException:" + e.getMessage(), e);
+            status = 1;
+            ret.put("Error:", e.getMessage());
+        } catch (Exception e) {
+            logger.fatal("Failed to send email. Got Exception:" + e.getMessage(), e);
+            status = 1;
+            ret.put("Error:", e.getMessage());
+        } finally {
+            Date now = new Date();
+            Long time = now.getTime() / 1000;
+            Sendmail sendmail = new Sendmail();
+            sendmail.setContent(emailContent);
+            sendmail.setMail_category(mailCategory);
+            sendmail.setMail_title(title);
+            sendmail.setMail_to(toMail);
+            sendmail.setSend_time(Integer.valueOf(time.toString()));
+            sendmail.setCreate_time(new Timestamp(now.getTime()));
+            sendmail.setStatus(status);
+            sendmail.setUser_name(userName == null ? "" : userName);
+            sendMailDao.insert(sendmail);
+        }
+        return ret;
+    }
+
     private MailService mailService;
 
     @Autowired
