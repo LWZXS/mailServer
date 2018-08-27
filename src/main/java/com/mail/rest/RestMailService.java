@@ -202,7 +202,10 @@ public class RestMailService {
                     toMail = String.valueOf(dataMap.get("toMail"));
                     data.setVariable("ebUrl", MailConstants.URL_EB);
                     orderTemplate = String.valueOf(MailConstants.class.getDeclaredField(orderTemplatePrefix + "_EB_" + language).get(null));
-                    result = mailServiceDelegate.sendEBookingMail(toMail, orderTemplate, mailServiceDelegate.selectTemplateBySubject(orderTemplate).getTemplate_title(), "usitrip", data);
+                    String title =  String.valueOf(MailConstants.class.getDeclaredField(orderTemplatePrefix + "_TITLEC_" + "EB_" + language).get(null));
+                    title = title.replace("hotelName***", String.valueOf(dataMap.get("hotelName"))).replace("checkin***", String.valueOf(dataMap.get("checkin")))
+                            .replace("checkout***", String.valueOf(dataMap.get("checkout"))).replace("orderId***", String.valueOf(dataMap.get("orderId")));
+                    result = mailServiceDelegate.sendEBookingMail(toMail, orderTemplate, title, "usitrip", data);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
