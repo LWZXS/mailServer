@@ -199,17 +199,18 @@ public class MailServiceDelegate {
 
             String code = StringUtil.Encoder(toMail, "");
             emailContent = templateEngine.process(mailCategory, data);
-            htmlEmail.setHostName(MailConstants.MAIL_HOST_117BOOK);
-            htmlEmail.addTo(toMail, userName);
-            String[] emails = {"2355652773@qq.com", "2355652779@qq.com", "2355652781@qq.com", "2355652791@qq.com", "2355906871@qq.com", "2355958065@qq.com", "2853759750@qq.com", "2853759768@qq.com"};
+            htmlEmail.setHostName(mailCategory.contains("CancelledOrder") ? MailConstants.MAIL_HOST_SOLDOUT_EB : MailConstants.MAIL_HOST_117BOOK);
+            htmlEmail.addTo(toMail, String.valueOf(data.getVariables().get("hotelName")));
+            String[] emails = {"2355652773@qq.com", "2355652779@qq.com", "2355652781@qq.com", "2355652791@qq.com", "2355906871@qq.com",
+                    "2355958065@qq.com", "2853759750@qq.com", "2853759768@qq.com", "bd@117book.com", "bdusa@usitrip.com"};
             htmlEmail.addCc(emails);
-            htmlEmail.setAuthenticator(new DefaultAuthenticator(MailConstants.MAIL_USERNAME_117BOOK,
-                    MailConstants.MAIL_PASSWORD_117BOOK));
-            htmlEmail.setFrom(MailConstants.MAIL_USERNAME_117BOOK, MailConstants.FROM_NAME_EB_EN);
+            htmlEmail.setAuthenticator(new DefaultAuthenticator(mailCategory.contains("CancelledOrder") ? MailConstants.MAIL_USERNAME_SOLDOUT_EB : MailConstants.MAIL_USERNAME_117BOOK,
+                    mailCategory.contains("CancelledOrder") ? MailConstants.MAIL_PASSWORD_SOLDOUT_EB : MailConstants.MAIL_PASSWORD_117BOOK));
+            htmlEmail.setFrom(mailCategory.contains("CancelledOrder") ? MailConstants.MAIL_USERNAME_SOLDOUT_EB : MailConstants.MAIL_USERNAME_117BOOK, MailConstants.FROM_NAME_EB_EN);
             htmlEmail.setSubject(title);
             // htmlEmail.setSSLOnConnect(true);
             htmlEmail.setStartTLSEnabled(true);
-            htmlEmail.setSmtpPort(MailConstants.MAIL_PORT_117BOOK);
+            htmlEmail.setSmtpPort(mailCategory.contains("CancelledOrder") ? MailConstants.MAIL_PORT_SOLDOUT_EB : MailConstants.MAIL_PORT_117BOOK);
             htmlEmail.setCharset("utf-8");
             // embed the image and get the content id
 

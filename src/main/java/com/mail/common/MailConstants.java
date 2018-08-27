@@ -25,11 +25,22 @@ public class MailConstants {
 	public static final Integer SMTP_PORT = 587;
 	public static final String FROM_NAME = "走四方旅游网";
 
+	//Ebooking
 	public static final String FROM_NAME_EB_EN = "ebooking.117book.com";
 	public static final String URL_EB = "http://ebooking.117book.com";
 	public static final String NEWORDERTEMPLATE_EB_EN = "ebookingNewOrder";
-	public static final String SOLDOUTTEMPLATE_EB_EN = "ebookingSoldOut";
+	public static final String CANCELLEDORDERTEMPLATE_EB_EN = "ebookingCancelledOrder";
+	public static final String NEWORDERTEMPLATE_TITLEC_EB_EN  = "New Order From ebooking.117book.com";
+	public static final String CANCELLEDORDERTEMPLATE_TITLEC_EB_EN  = "117book Hotel Cancellation Confirmation - hotelName***, checkin*** to checkout*** (orderId***)";
 
+	public static final String SOLDOUTTEMPLATE_EB_EN = "ebookingSoldOut";
+	public static final String MAIL_HOST_SOLDOUT_EB = "smtp.gmail.com";
+	public static final Integer MAIL_PORT_SOLDOUT_EB = 587;
+	public static final String MAIL_USERNAME_SOLDOUT_EB = "usitripit1@gmail.com";
+	public static final String MAIL_PASSWORD_SOLDOUT_EB = "usitripbdusa";
+
+	//usitour usitrip 117book cc address
+	public static final String MAIL_UU1_CC = "2355958065@qq.com";
 	//USITOUR
 	public static final String NEWORDERTEMPLATE_USITOUR_EN = "usitourNewOrderEN";
 	public static final String CANCELLEDORDERTEMPLATE_USITOUR_EN = "usitourCancelledOrderEN";
@@ -44,7 +55,6 @@ public class MailConstants {
 	public static final String MAIL_PASSWORD_USITOUR = "UsiSv8818$";
 	public static final String MAIL_ENCRYPTION_USITOUR = "tls";
 
-	public static final String MAIL_UU1_CC = "2355958065@qq.com";
 	//USITRIP
 	public static final String NEWORDERTEMPLATE_USITRIP_EN = "usitripNewOrderEN";
 	public static final String NEWORDERTEMPLATE_USITRIP_CN = "usitripNewOrderCN";
@@ -82,11 +92,4 @@ public class MailConstants {
 	public static final String MAIL_USERNAME_117BOOK = "noreply@117book.com";
 	public static final String MAIL_PASSWORD_117BOOK = "Usi117#book";
 	public static final String MAIL_ENCRYPTION_117BOOK = "tls";
-
-	//EBooking sold out
-	public static final String MAIL_HOST_SOLDOUT_EB = "smtp.gmail.com";
-	public static final Integer MAIL_PORT_SOLDOUT_EB = 587;
-	public static final String MAIL_USERNAME_SOLDOUT_EB = "usitripit1@gmail.com";
-	public static final String MAIL_PASSWORD_SOLDOUT_EB = "usitripbdusa";
-
 }
