@@ -186,11 +186,16 @@ public class MailServiceDelegate {
     }
 
     public Map<String, Object> sendEBookingMail(String toMail, String mailCategory,
-                                                String title, String userName, Context data) throws Exception {
+                                                String title, String userName, Context data, int times) throws Exception {
         Map<String, Object> ret = new HashMap<String, Object>();
         int status = 0;
         String emailContent = "";
         HtmlEmail htmlEmail = new HtmlEmail();
+        if(times>=3){
+        	ret.put("Error:", "Job sendEBookingMail stopped after sent email failed 3 times");
+        	logger.fatal("Job sendEBookingMail stopped after sent email failed 3 times");
+        	return ret;
+        }
         try {
             //Context data = new Context();
             //data.setVariable("user_name", userName);
@@ -241,14 +246,23 @@ public class MailServiceDelegate {
             sendmail.setUser_name(userName == null ? "" : userName);
             sendMailDao.insert(sendmail);
         }
+        if(status==1){
+        	ret = sendEBookingMail(toMail, mailCategory,
+                    title, userName, data, ++times);
+        }
         return ret;
     }
 
-    public Map<String, Object> sendMail(Map<String, String> map, Context data) {
+    public Map<String, Object> sendMail(Map<String, String> map, Context data, int times) {
         Map<String, Object> ret = new HashMap<String, Object>();
         int status = 0;
         String emailContent = "";
         HtmlEmail htmlEmail = new HtmlEmail();
+        if(times>=3){
+        	ret.put("Error:", "Job sendMail stopped after sent email failed 3 times");
+        	logger.fatal("Job sendMail stopped after sent email failed 3 times");
+        	return ret;
+        }
         try {
             emailContent = templateEngine.process(map.get("template"), data);
             htmlEmail.setHostName(map.get("host"));
@@ -288,15 +302,23 @@ public class MailServiceDelegate {
             sendmail.setUser_name(map.get("recipientName") == null ? "" : map.get("recipientName"));
             sendMailDao.insert(sendmail);
         }
+        if(status==1){
+        	ret = sendMail(map, data, ++times);
+        }
         return ret;
     }
 
     public Map<String, Object> sendEBookingSoldOutMail(String toMail, String mailCategory,
-                                                String title, String userName, Context data) throws Exception {
+                                                String title, String userName, Context data, int times) throws Exception {
         Map<String, Object> ret = new HashMap<String, Object>();
         int status = 0;
         String emailContent = "";
         HtmlEmail htmlEmail = new HtmlEmail();
+        if(times>=3){
+        	ret.put("Error:", "Job sendEBookingSoldOutMail stopped after sent email failed 3 times");
+        	logger.fatal("Job sendEBookingSoldOutMail stopped after sent email failed 3 times");
+        	return ret;
+        }
         try {
             String code = StringUtil.Encoder(toMail, "");
             emailContent = templateEngine.process(mailCategory, data);
@@ -337,6 +359,10 @@ public class MailServiceDelegate {
             sendmail.setStatus(status);
             sendmail.setUser_name(userName == null ? "" : userName);
             sendMailDao.insert(sendmail);
+        }
+        if(status==1){
+        	ret = sendEBookingSoldOutMail(toMail, mailCategory,
+                    title, userName, data, ++times);
         }
         return ret;
     }

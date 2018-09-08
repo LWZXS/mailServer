@@ -135,7 +135,7 @@ public class RestMailService {
             Context data = new Context();
             data.setVariable("hotelName", hotelName);
             data.setVariable("ebUrl", MailConstants.URL_EB);
-            mailServiceDelegate.sendEBookingSoldOutMail(toMail, MailConstants.SOLDOUTTEMPLATE_EB_EN, mailServiceDelegate.selectTemplateBySubject(MailConstants.SOLDOUTTEMPLATE_EB_EN).getTemplate_title(), "usitrip", data);
+            mailServiceDelegate.sendEBookingSoldOutMail(toMail, MailConstants.SOLDOUTTEMPLATE_EB_EN, mailServiceDelegate.selectTemplateBySubject(MailConstants.SOLDOUTTEMPLATE_EB_EN).getTemplate_title(), "usitrip", data,0);
             result.put("status", "true");
         } catch (Exception e) {
             e.printStackTrace();
@@ -197,7 +197,7 @@ public class RestMailService {
                     }
                     map.put("title", title.replaceAll("[*]{3}", String.valueOf(dataMap.get("orderId"))));
 
-                    result = mailServiceDelegate.sendMail(map, data);
+                    result = mailServiceDelegate.sendMail(map, data,0);
                 } else {
                     toMail = String.valueOf(dataMap.get("toMail"));
                     data.setVariable("ebUrl", MailConstants.URL_EB);
@@ -205,7 +205,7 @@ public class RestMailService {
                     String title =  String.valueOf(MailConstants.class.getDeclaredField(orderTemplatePrefix + "_TITLEC_" + "EB_" + language).get(null));
                     title = title.replace("hotelName***", String.valueOf(dataMap.get("hotelName"))).replace("checkin***", String.valueOf(dataMap.get("checkin")))
                             .replace("checkout***", String.valueOf(dataMap.get("checkout"))).replace("orderId***", String.valueOf(dataMap.get("orderId")));
-                    result = mailServiceDelegate.sendEBookingMail(toMail, orderTemplate, title, "usitrip", data);
+                    result = mailServiceDelegate.sendEBookingMail(toMail, orderTemplate, title, "usitrip", data,0);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
