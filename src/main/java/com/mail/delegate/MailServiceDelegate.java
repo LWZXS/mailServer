@@ -325,7 +325,7 @@ public class MailServiceDelegate {
             htmlEmail.setHostName(MailConstants.MAIL_HOST_SOLDOUT_EB);
             htmlEmail.addTo(toMail, userName);
             String[] emails = {"2355652773@qq.com", "2355652779@qq.com", "2355652781@qq.com", "2355652791@qq.com", "2355906871@qq.com", "2355958065@qq.com", "2853759750@qq.com", "2853759768@qq.com"};
-            htmlEmail.addCc(emails);
+            //htmlEmail.addCc(emails);
             htmlEmail.setAuthenticator(new DefaultAuthenticator(MailConstants.MAIL_USERNAME_SOLDOUT_EB,
                     MailConstants.MAIL_PASSWORD_SOLDOUT_EB));
             htmlEmail.setFrom(MailConstants.MAIL_USERNAME_SOLDOUT_EB, MailConstants.FROM_NAME_EB_EN);

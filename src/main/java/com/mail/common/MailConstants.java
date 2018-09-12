@@ -33,7 +33,9 @@ public class MailConstants {
 	public static final String NEWORDERTEMPLATE_TITLEC_EB_EN  = "New Order From ebooking.117book.com";
 	public static final String CANCELLEDORDERTEMPLATE_TITLEC_EB_EN  = "117book Hotel Cancellation Confirmation - hotelName***, checkin*** to checkout*** (orderId***)";
 
+	public static final String REJECTTEMPLATE_EB_EN = "ebookingReject";
 	public static final String SOLDOUTTEMPLATE_EB_EN = "ebookingSoldOut";
+	public static final String SOLDOUWARNTTEMPLATE_EB_EN = "ebookingSoldOutWarning";
 	public static final String MAIL_HOST_SOLDOUT_EB = "smtp.gmail.com";
 	public static final Integer MAIL_PORT_SOLDOUT_EB = 587;
 	public static final String MAIL_USERNAME_SOLDOUT_EB = "usitripit1@gmail.com";
