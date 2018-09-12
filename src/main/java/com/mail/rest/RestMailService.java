@@ -6,6 +6,7 @@ import com.mail.common.StringUtil;
 import com.mail.delegate.MailService;
 import com.mail.delegate.MailServiceDelegate;
 import com.mail.entity.VoQuery;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.quartz.SchedulerException;
@@ -16,6 +17,8 @@ import org.thymeleaf.context.Context;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -124,6 +127,27 @@ public class RestMailService {
     }
 
     @POST
+    @Path("/sendRejectEmail")
+    @Produces("application/json")
+    public Response sendRejectEmail(Map<String, Object> paramMap) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        try {
+            Map<String, Object> dataMap = (Map<String, Object>) paramMap.get("data");
+            String toMail = (String) dataMap.get("toMail");
+            String hotelName = (String) dataMap.get("hotelName");
+            Context data = new Context();
+            data.setVariable("hotelName", hotelName);
+            data.setVariable("ebUrl", MailConstants.URL_EB);
+            mailServiceDelegate.sendEBookingSoldOutMail(toMail, MailConstants.REJECTTEMPLATE_EB_EN, mailServiceDelegate.selectTemplateBySubject(MailConstants.REJECTTEMPLATE_EB_EN).getTemplate_title(), "usitrip", data,0);
+            result.put("status", "true");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("status", "error(" + e.getMessage() + ")");
+        }
+        return Response.status(Status.OK).entity(result).build();
+    }
+    
+    @POST
     @Path("/sendSoldOutEmail")
     @Produces("application/json")
     public Response sendSoldOutEmail(Map<String, Object> paramMap) {
@@ -132,8 +156,12 @@ public class RestMailService {
             Map<String, Object> dataMap = (Map<String, Object>) paramMap.get("data");
             String toMail = (String) dataMap.get("toMail");
             String hotelName = (String) dataMap.get("hotelName");
+            String roomType = (String) dataMap.get("roomType");
+            ArrayList<String> list = (ArrayList<String>) dataMap.get("sale_date");
             Context data = new Context();
             data.setVariable("hotelName", hotelName);
+            data.setVariable("roomType", roomType);
+            data.setVariable("list", list);
             data.setVariable("ebUrl", MailConstants.URL_EB);
             mailServiceDelegate.sendEBookingSoldOutMail(toMail, MailConstants.SOLDOUTTEMPLATE_EB_EN, mailServiceDelegate.selectTemplateBySubject(MailConstants.SOLDOUTTEMPLATE_EB_EN).getTemplate_title(), "usitrip", data,0);
             result.put("status", "true");
@@ -143,7 +171,32 @@ public class RestMailService {
         }
         return Response.status(Status.OK).entity(result).build();
     }
-
+    
+    @POST
+    @Path("/sendSoldOutWarningEmail")
+    @Produces("application/json")
+    public Response sendSoldOutWarningEmail(Map<String, Object> paramMap) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        try {
+            Map<String, Object> dataMap = (Map<String, Object>) paramMap.get("data");
+            String toMail = (String) dataMap.get("toMail");
+            String hotelName = (String) dataMap.get("hotelName");
+            String roomType = (String) dataMap.get("roomType");
+            ArrayList<String> list = (ArrayList<String>) dataMap.get("sale_date");
+            Context data = new Context();
+            data.setVariable("hotelName", hotelName);
+            data.setVariable("roomType", roomType);
+            data.setVariable("list", list);
+            data.setVariable("ebUrl", MailConstants.URL_EB);
+            mailServiceDelegate.sendEBookingSoldOutMail(toMail, MailConstants.SOLDOUWARNTTEMPLATE_EB_EN, mailServiceDelegate.selectTemplateBySubject(MailConstants.SOLDOUWARNTTEMPLATE_EB_EN).getTemplate_title(), "usitrip", data,0);
+            result.put("status", "true");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("status", "error(" + e.getMessage() + ")");
+        }
+        return Response.status(Status.OK).entity(result).build();
+    }
+    
     @POST
     @Path("/sendCancelledEmail")
     @Produces("application/json")
